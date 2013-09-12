@@ -89,7 +89,7 @@ def status():
 @route('/user/all', method = 'GET')
 def users():
     if validate_token(request.query.token):
-        result = db_read_multiple("SELECT name, email, sheeps, telephone, id FROM bonder;", 'bonder') #TODO:Like
+        result = db_read_multiple("SELECT name, email, sheeps, telephone, id FROM bonder;", 'bonder')
         if result != None:
             return respond(200, 'Ok', result)
         else:
@@ -127,11 +127,10 @@ def user_me(action):
 
 @route('/register', method='POST')
 def register():
-  #TODO: FIX
     email = request.forms.get('email')
     name = request.forms.get('name')
     pswd = request.forms.get('pswd')
-    #result = db_update_multiple("INSERT INTO `prosjektsau`.`bonder` (`id`, `name`, `pswd`, `email`, `token`, 'sheeps',  'telephone`) VALUES (NULL," + email + ", " + name + "," + pswd + ',' '0', '0', '0', '0', '0', '', '');")
+    result = db_update_multiple('INSERT INTO `prosjektsau`.`bonder` (`id`, `name`, `email`, `pswd`, `token`, `sheeps`, `telephone`) VALUES (NULL, ' + str(name) + ', ' +str(email) + ', ' + str(pswd) + ', NULL, NULL);')
 
 
 
