@@ -78,7 +78,7 @@ def db_update_token(email, token):
 ##########################
 
 @route('/sheep/<i:int>', method='GET')
-def sheep(i):
+def sheep(i=None):
     if validate_token(request.query.token):
         result = db_read_multiple('sheep', i)
         if result != False:
@@ -88,11 +88,22 @@ def sheep(i):
     else:
         return respond(132,'No (such) token', None)
 
-
-@route('/sheep/add/<i:int>', method='GET')
-def add_sheep(i):
-    if validate_token(request.query.token):
-        
+@route('/sheep/add', method='GET')
+def add_sheep():
+    token = request.query.token
+    if validate_token(token):
+        name = request.query.name
+        age = request.query.age
+        gender = request.query.gender
+        owner = str(db_read_single('id', 'bonder', 'token', token))
+        #TODO: hr, lat, long
+        try:
+            db_insert('sauer', {'name':name, 'age':age, 'gender':gender, 'owner':owner})
+            return respond(200, 'Sheep added', None)
+        except:
+            return respond(131, 'Database-error', None)
+    else:
+        return respond(132, 'No (such) token', None)
 
 ##########################
 ## Function for writing ##
@@ -172,16 +183,17 @@ def login():
     else:
         return respond(131, 'Invalid input', None)
 
+
+## Noe som ikke stemmer her, EDIT:: Joa, det må bare kjøres str() på output
 def validate_token(token):
-    result = db_read_single("id", "bonder", "token", token)
+    result = db_read_single('id', 'bonder', 'token', token)
     if result == None:
         return False
     else:
         return True
 
 def check_credentials(em, p):
-    data = db_read_single("pswd", "bonder", "email", em)
-    psw = data
+    psw = db_read_single("pswd", "bonder", "email", em)
     if str(psw) == p:
         return True
     else:
