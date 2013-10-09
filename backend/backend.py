@@ -79,6 +79,10 @@ def db_update_token(email, token):
 ## General purpose      ##
 ##########################
 
+@route('/status', method='GET')
+def status():
+    return respond(200, 'Server up and runnning', None)
+
 @route('/sheep', method='GET')
 def sheep():
     token = request.query.token
