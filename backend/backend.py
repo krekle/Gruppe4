@@ -78,6 +78,9 @@ def db_update_token(email, token):
 ##########################
 ## General purpose      ##
 ##########################
+@route('/')
+def default():
+    return respond(200, 'TODO: return doc in html', None)    
 
 @route('/status', method='GET')
 def status():
@@ -103,10 +106,11 @@ def add_sheep():
         name = request.query.name
         age = request.query.age
         gender = request.query.gender
+        weight = request.query.weight
         owner = str(db_read_single('id', 'bonder', 'token', token))
         #TODO: hr, lat, long
         try:
-            db_insert('sauer', {'name':name, 'age':age, 'gender':gender, 'owner':owner})
+            db_insert('sauer', {'name':name, 'age':age, 'gender':gender, 'owner':owner, 'weight':weight})
             return respond(200, 'Sheep added', None)
         except:
             return respond(131, 'Database-error', None)
@@ -131,10 +135,12 @@ def respond(co, ms, resp):
 def register():
     return'''
         <form action="/register" method="post">
-            Email:    <input type="text" name="email"   />
-            Name:     <input type="text" name="name"    />
-            Password:  <input type="password" name="pswd"    />
+            Email:    <input type="text" name="email"    />
+            Name:     <input type="text" name="name"     />
+            Password:  <input type="password" name="pswd"/>
             Phone:     <input type="text" name="phone"   />
+            Address:   <input type="text" name="address" />
+            Vara:      <input type="text" name="vara"    />
             <input type="submit" value="Register" />
         </form>'''
 
@@ -144,10 +150,12 @@ def register():
     name = request.forms.get('name')
     pswd = request.forms.get('pswd')
     phone = request.forms.get('phone')
+    address = request.forms.get('address')
+    vara = request.form.get('vara')
 
     if email != None and name != None and pswd != None and phone != None:
       token = generate_token(email)
-      d = {'name':name, 'email':email,'pswd':pswd, 'token':token,  'sheeps':'0', 'telephone':phone}
+      d = {'name':name, 'email':email,'pswd':pswd, 'token':token,  'sheeps':'0', 'telephone':phone, 'address':address, 'vara':vara}
       if db_insert('bonder', d) == True:
         return respond(200, 'User Registration Complete', {'token':token})
       else:
