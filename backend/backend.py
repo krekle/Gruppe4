@@ -151,9 +151,9 @@ def register():
     pswd = request.forms.get('pswd')
     phone = request.forms.get('phone')
     address = request.forms.get('address')
-    vara = request.form.get('vara')
+    vara = request.forms.get('vara')
 
-    if email != None and name != None and pswd != None and phone != None:
+    if email != None and name != None and pswd != None and phone != None and address != None and vara != None:
       token = generate_token(email)
       d = {'name':name, 'email':email,'pswd':pswd, 'token':token,  'sheeps':'0', 'telephone':phone, 'address':address, 'vara':vara}
       if db_insert('bonder', d) == True:
