@@ -47,15 +47,17 @@
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="233" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="button_search_sheep" min="-2" max="-2" attributes="0"/>
-                              <Component id="button_addSheep" min="-2" pref="211" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="233" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="button_addSheep" pref="211" max="32767" attributes="0"/>
+                              <Component id="button_search_sheep" alignment="1" max="32767" attributes="0"/>
+                              <Component id="button_return" alignment="1" max="32767" attributes="0"/>
+                              <Component id="button_allSheep" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <EmptySpace min="0" pref="82" max="32767" attributes="0"/>
@@ -69,9 +71,13 @@
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
                   <Component id="button_addSheep" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                  <Component id="button_allSheep" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                   <Component id="button_search_sheep" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="167" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                  <Component id="button_return" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="99" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -81,6 +87,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Legg til sau"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button_addSheepActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="button_search_sheep">
           <Properties>
@@ -97,6 +106,22 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Her kan du legge til nye sauer, se informasjon om hver enkelt sau og fjerne sauer."/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="button_return">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Tilbake til hovedmeny"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button_returnActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="button_allSheep">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Se alle sauer"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button_allSheepActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

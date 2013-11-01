@@ -96,7 +96,7 @@
                                   <Component id="button_map" max="32767" attributes="0"/>
                                   <Component id="button_admin_sheeps" max="32767" attributes="0"/>
                                   <Component id="button_options" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="Button_logout" max="32767" attributes="0"/>
+                                  <Component id="button_logout" max="32767" attributes="0"/>
                               </Group>
                               <Component id="button_notifications" alignment="0" min="-2" pref="125" max="-2" attributes="0"/>
                           </Group>
@@ -120,7 +120,7 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="button_notifications" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="Button_logout" min="-2" max="-2" attributes="0"/>
+                  <Component id="button_logout" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="69" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -159,12 +159,12 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button_mapActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="Button_logout">
+        <Component class="javax.swing.JButton" name="button_logout">
           <Properties>
             <Property name="text" type="java.lang.String" value="Logg ut"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Button_logoutActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button_logoutActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="button_notifications">

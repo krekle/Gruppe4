@@ -1,9 +1,9 @@
-package sheep.net.krekle;
+package backend;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import sheep.net.krekle.Client.Type;
+import backend.Client.Type;
 
 public class sheepdb{
 	public static String[] login(String email, String password) throws Exception{
@@ -21,9 +21,10 @@ public class sheepdb{
 	
 	public static String[] parser(String res, String var){
 		if(res != null){
-			String[] response = {"", "", ""};
+			String[] response = {null, null, null};
 			
 			try {
+                            if(res.charAt(0) == '{'){
 				//Making json of full server-callback
 				JSONObject data = new JSONObject(res);
 				//Parsing out response, code and message
@@ -35,7 +36,7 @@ public class sheepdb{
 				} catch (Exception e) {
 					//nothing
 				}
-				
+                            }
 				
 			} catch (JSONException e) {
 				new JSONException("Error parsing data");
@@ -59,12 +60,12 @@ public class sheepdb{
 		return parser(result, "sheep");
 	}
 	
-	public static void main(String[] args) throws Exception{
+	//public static void main(String[] args) throws Exception{
 		//System.out.print(login("kristian.ekle@gmail.com", "kristian")[2]);
 		//Working - System.out.print(register("Christof.kekle@gmail.com", "Christobar", "chritof", "32578532", "Someplace", "kristian.ekle@gmail.com")[2]);
 		//System.out.print(addSheep("Birgitte", "13", "Female", "44", "sheep$635689a8574f4c4c60d343bb378384bfdc5d27a3")[1]);
 		//System.out.print(getSheep("sheep$635689a8574f4c4c60d343bb378384bfdc5d27a3")[2]);
-	}
+	//}
 	
 	
 }

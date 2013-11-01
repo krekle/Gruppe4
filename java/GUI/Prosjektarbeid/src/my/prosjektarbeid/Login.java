@@ -3,13 +3,13 @@
  * and open the template in the editor.
  */
 package my.prosjektarbeid;
-
+import backend.*;
 /**
  *
  * @author Petter
  */
 public class Login extends javax.swing.JFrame {
-
+private sheepdb db = new sheepdb();
     /**
      * Creates new form Login
      */
@@ -30,10 +30,10 @@ public class Login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        login_username = new javax.swing.JTextField();
-        login_password = new javax.swing.JPasswordField();
+        textfield_username = new javax.swing.JTextField();
+        textfield_password = new javax.swing.JPasswordField();
         buton_login = new javax.swing.JButton();
-        button_new_user = new javax.swing.JButton();
+        button_newUser = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -44,9 +44,9 @@ public class Login extends javax.swing.JFrame {
 
         jLabel3.setText("Passord:");
 
-        login_username.addActionListener(new java.awt.event.ActionListener() {
+        textfield_username.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                login_usernameActionPerformed(evt);
+                textfield_usernameActionPerformed(evt);
             }
         });
 
@@ -57,10 +57,10 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        button_new_user.setText("Lag ny bruker");
-        button_new_user.addActionListener(new java.awt.event.ActionListener() {
+        button_newUser.setText("Lag ny bruker");
+        button_newUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button_new_userActionPerformed(evt);
+                button_newUserActionPerformed(evt);
             }
         });
 
@@ -77,13 +77,13 @@ public class Login extends javax.swing.JFrame {
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(login_username, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                                .addComponent(login_password))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(buton_login)
                                 .addGap(18, 18, 18)
-                                .addComponent(button_new_user)))))
+                                .addComponent(button_newUser))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(textfield_username, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                                .addComponent(textfield_password, javax.swing.GroupLayout.Alignment.LEADING)))))
                 .addGap(0, 143, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -94,15 +94,15 @@ public class Login extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(login_username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textfield_username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(login_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textfield_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buton_login)
-                    .addComponent(button_new_user))
+                    .addComponent(button_newUser))
                 .addContainerGap(120, Short.MAX_VALUE))
         );
 
@@ -121,21 +121,43 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buton_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buton_loginActionPerformed
-        String username = login_username.getText();
-        char [] password = login_password.getPassword();
-        this.dispose();
-        new MainMenu().setVisible(true);
+        String username = textfield_username.getText();
+        char [] passwordArray = textfield_password.getPassword();
+        String password = "";
+        for (int i = 0; i < passwordArray.length; i++) {
+            char c = passwordArray[i];
+            password += c;
+            
+        }
+        String[] response = null;
+        try {
+        response = db.login(username, password);
+        }
+        catch(Exception e) {
+            System.out.println("Something went wrong");
+        }
+        if(response[2] != null){            
+            this.dispose();
+            new MainMenu().setVisible(true);
+        }
+        else {
+            System.out.println("Galt brukernavn / passord");
+            textfield_username.setText("");
+            textfield_password.setText("");
+        }
+        
     }//GEN-LAST:event_buton_loginActionPerformed
 
-    private void button_new_userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_new_userActionPerformed
+    private void button_newUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_newUserActionPerformed
+ 
         this.dispose(); 
         new Register().setVisible(true);
         
-    }//GEN-LAST:event_button_new_userActionPerformed
+    }//GEN-LAST:event_button_newUserActionPerformed
 
-    private void login_usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login_usernameActionPerformed
+    private void textfield_usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textfield_usernameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_login_usernameActionPerformed
+    }//GEN-LAST:event_textfield_usernameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -173,12 +195,12 @@ public class Login extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buton_login;
-    private javax.swing.JButton button_new_user;
+    private javax.swing.JButton button_newUser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField login_password;
-    private javax.swing.JTextField login_username;
+    private javax.swing.JPasswordField textfield_password;
+    private javax.swing.JTextField textfield_username;
     // End of variables declaration//GEN-END:variables
 }

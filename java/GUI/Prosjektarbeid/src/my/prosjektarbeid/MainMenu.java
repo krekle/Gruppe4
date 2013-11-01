@@ -37,7 +37,7 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         button_options = new javax.swing.JButton();
         button_map = new javax.swing.JButton();
-        Button_logout = new javax.swing.JButton();
+        button_logout = new javax.swing.JButton();
         button_notifications = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -85,10 +85,10 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
-        Button_logout.setText("Logg ut");
-        Button_logout.addActionListener(new java.awt.event.ActionListener() {
+        button_logout.setText("Logg ut");
+        button_logout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Button_logoutActionPerformed(evt);
+                button_logoutActionPerformed(evt);
             }
         });
 
@@ -115,7 +115,7 @@ public class MainMenu extends javax.swing.JFrame {
                                 .addComponent(button_map, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(button_admin_sheeps, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(button_options, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(Button_logout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(button_logout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(button_notifications, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(186, Short.MAX_VALUE))
         );
@@ -133,7 +133,7 @@ public class MainMenu extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(button_notifications)
                 .addGap(18, 18, 18)
-                .addComponent(Button_logout)
+                .addComponent(button_logout)
                 .addContainerGap(69, Short.MAX_VALUE))
         );
 
@@ -150,21 +150,30 @@ public class MainMenu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    String username = "";
+    private void setter(String name) {
+        username = name;
+    }
+    private String getter() {
+        return username;
+    }
     private void button_admin_sheepsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_admin_sheepsActionPerformed
+        String info[] = new String[1];
+        info[0] = username;
+        SheepAdmin.main(info);
         this.dispose(); 
         new SheepAdmin().setVisible(true);
     }//GEN-LAST:event_button_admin_sheepsActionPerformed
-
+    
     private void button_notificationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_notificationsActionPerformed
         this.dispose(); 
         new Notifications().setVisible(true);
     }//GEN-LAST:event_button_notificationsActionPerformed
 
-    private void Button_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_logoutActionPerformed
+    private void button_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_logoutActionPerformed
         this.dispose(); 
         new Login().setVisible(true);//Her logger man ut av systemet, og går til Login skjermen.
-    }//GEN-LAST:event_Button_logoutActionPerformed
+    }//GEN-LAST:event_button_logoutActionPerformed
 
     private void button_mapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_mapActionPerformed
         this.dispose(); 
@@ -182,6 +191,8 @@ public class MainMenu extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
+        String username = args[0];        
+        System.out.println(username);
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -212,8 +223,8 @@ public class MainMenu extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Button_logout;
     private javax.swing.JButton button_admin_sheeps;
+    private javax.swing.JButton button_logout;
     private javax.swing.JButton button_map;
     private javax.swing.JButton button_notifications;
     private javax.swing.JButton button_options;

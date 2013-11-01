@@ -40,7 +40,7 @@ public class Register extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lag ny bruker", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Times New Roman", 1, 18))); // NOI18N
 
-        jLabel1.setText("Brukernavn:");
+        jLabel1.setText("Navn:");
 
         jLabel2.setText("Passord:");
 
@@ -145,7 +145,25 @@ public class Register extends javax.swing.JFrame {
      * i feedback variabelen. På slutten av funksjonen sjekker man om feedback er tom, hvis den er det legger man inn teksten: "Gratulerer".
      */
     private String check_input(String username, String email) {
+        char [] passwordArray1 = textfield_pw1.getPassword();
+        char [] passwordArray2 = textfield_pw2.getPassword();
+        String password1 = "";
+        String password2 = "";
+        for (int i = 0; i < passwordArray1.length; i++) {
+            char c = passwordArray1[i];
+            password1 += c;
+            
+        }
+        for (int i = 0; i < passwordArray2.length; i++) {
+            char c = passwordArray2[i];
+            password2 += c;
+            
+        }
+        System.out.println(password1 + " " + password2);
         String feedback = "";
+        if (!password1.equals(password2)) {
+            feedback += "Du har ikke skrevet inn to like passord!";
+        }
         if (users.contains(username)) {
             feedback += "Denne brukeren finnes allerede.";        
         }
@@ -172,8 +190,7 @@ public class Register extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        String token = args[0];
-        System.out.println(token);
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
