@@ -1,0 +1,30 @@
+@CHARSET "UTF-8";
+
+.root {
+	-fx-spacing: 30;
+	-fx-background-color: #808080;
+	-fx-padding: 10;
+}
+.my_customLabel {
+	-fx-font-size: 40px;
+	-fx-font-weight: bold;
+}
+.button {
+	-fx-font-family: "Arial";
+	-fx-font-size: 20px;
+	-fx-font-weight: bold;
+	-fx-text-fill: #383640; 
+}
+.button:hover {
+	-fx-text-fill: #ffffff;
+}
+.split-pane:vertical > * > .split-pane-divider {
+   -fx-border-color:  transparent;
+   -fx-background-color: transparent;
+   -fx-background-insets: 0;
+}
+.split-pane:horizontal > * > .split-pane-divider {
+   -fx-border-color:  transparent;
+   -fx-background-color: transparent;
+   -fx-background-insets: 0;
+}
