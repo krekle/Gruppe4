@@ -1,0 +1,71 @@
+<html>
+        <head>
+                <title>HTML Online Editor Sample</title>
+        </head>
+        <body>
+                <h1>
+                        SheepFarmer 3000</h1>
+                <p>
+                        This is the API documentation for the SheepFarmer 3000 API!</p>
+                <p>
+                        The base url for all the requests is &nbsp;<strong>http://dev.krekle.net:8081/</strong></p>
+                <ul>
+                        <li>
+                                This url will return this page</li>
+                        <li>
+                                (As you already know)</li>
+                </ul>
+                <h2>
+                        API-endPoints</h2>
+                <p>
+                        &nbsp;</p>
+                <p>
+                        <strong>&#39;/status&#39;</strong><br />
+                        Returns the server status.<br />
+                        <em>No parameters required.</em></p>
+                <p>
+                        &nbsp;</p>
+                <p>
+                        <strong>&#39;/login&#39;</strong><br />
+                        HttpGet will return a html-form for HttpPost request and requires no parameters<br />
+                        HttpPost will return&nbsp;a session token specific for a user on successful authentification<br />
+                        this requires:<br />
+                        <em>Email, as &#39;email&#39; and Password, as &#39;pswd&#39; or<br />
+                        Session token, as &#39;token&#39;</em></p>
+                <p>
+                        &nbsp;</p>
+                <p>
+                        <strong>&#39;/register&#39;</strong><br />
+                        HttpGet will return a html-form for HttpPost request and requires no parameters<br />
+                        HttpPost will return&nbsp;a session token specific for a user on successful user creation.<br />
+                        Post requires parameters:<br />
+                        <em>Email, as &#39;email&#39;<br />
+                        Password, as &#39;pswd&#39;<br />
+                        Name, as &#39;name&#39;<br />
+                        Telephone, as &#39;phone&#39;<br />
+                        Address, as &#39;address&#39;<br />
+                        Vara, as &#39;vara&#39;</em></p>
+                <p>
+                        &nbsp;</p>
+                <p>
+                        <strong>&#39;/notification</strong><br />
+                        This is a HttpGet endpoint for getting notifications<br />
+                        If only the<em> token </em>parameter is sent with the request, it will return a JsonArray with notifications for a user.<br />
+                        If token and <em>sheepid </em>is sent with the request, it will return a &nbsp;JsonArray with notifications for sheep with sheepid.</p>
+                <p>
+                        &nbsp;</p>
+                <p>
+                        <strong>&#39;/sheep&#39;</strong><br />
+                        This is a HttpGet endpoint for getting sheeps<br />
+                        If only the<em> token</em> parameter is sent with the request, it will return a JsonArray with all sheeps for a user.<br />
+                        If token and<em> sheepid </em>is sent with the request, it will return a &nbsp;single sheep with sheepid.</p>
+                <p>
+                        &nbsp;</p>
+                <p>
+                        <strong>&#39;/sheep/add&#39;</strong><br />
+                        This is a HttpGet endpoint for adding new sheep<br />
+                        This requires token for user validation and data for a sheep;<br />
+                        <em>&#39;name&#39;, &#39;age&#39;, &#39;gender&#39;, &#39;weight&#39; </em>the rest is added by the server.</p>
+        </body>
+</html>
+
