@@ -1,11 +1,10 @@
 #-*- coding: utf-8 -*-
 
-from bottle import debug, response, request, route, run, post, get, HTTPResponse, static_file
+from bottle import debug, response, request, route, run, post, get, HTTPResponse
 import json
 import MySQLdb as db
 import time
 import gc
-import os
 
 ## token ##
 import hashlib
@@ -30,7 +29,7 @@ def db_read_single(unknown, table, key, value):
         return False
     return str(data[0])
 
-def db_read_multiple(lifeform, userid, sheepid):
+def db_read_multiple(lifeform, userid=None):
     if lifeform == "farmer" and userid == None:
         sql = "SELECT * from `bonder`" 
     elif lifeform == "farmer" and userid != None:
@@ -39,29 +38,21 @@ def db_read_multiple(lifeform, userid, sheepid):
         sql = "SELECT * from `sauer`"
     elif lifeform == "sheep" and userid != None:
         sql = "SELECT * from `sauer` WHERE `owner` = '%s'" % (userid)
-    elif lifeform == "notification" and userid != None:
-        sql = "SELECT * from `notifications` WHERE `owner`= '%s'" % (userid)
-    elif lifeform == "notification" and userid == None and sheepid != None:
-        sql = "SELECT * from `notifications` WHERE `sheepid` = '%s'" % (sheepid)
+    
     try:
         cur = con.cursor()
         cur.execute(sql)
-        result = []
-        finalres = {}
-        columns = tuple( [d[0].decode('utf8') for d in cur.description])
-        for row in cur:
-            result.append(dict(zip(columns, row)))
-        newresult = []
-        
-        for d in result:
-            keys = [str(k) for k in d.keys()]
-            values = [str(v) for v in d.values()]
-            newresult.append(dict(zip(keys, values)))
-        finalres[lifeform] = newresult
-
+        data = cur.fetchall()
+        if data == None:
+            return "Empty"
+        d = {}
+        l = []
+        for da in data:
+          l.append([str(da)])
+        d[lifeform] = l
     except:
         return False
-    return finalres
+    return d
 
 def db_insert(t, kwargs):
     sql = "INSERT INTO `%s`" % (t)
@@ -89,7 +80,7 @@ def db_update_token(email, token):
 ##########################
 @route('/')
 def default():
-    return static_file('api.html', root=os.path.join(os.path.dirname(__file__), 'static'))
+    return respond(200, 'TODO: return doc in html', None)    
 
 @route('/status', method='GET')
 def status():
@@ -100,35 +91,13 @@ def sheep():
     token = request.query.token
     current_user = str(db_read_single('id', 'bonder', 'token', token))
     if validate_token(token):
-        result = db_read_multiple('sheep', current_user, None)
+        result = db_read_multiple('sheep', current_user)
         if result != False:
             return respond(200, 'Ok', result)
         else:
             return respond(131, 'Database-error', None)
     else:
         return respond(132,'No (such) token', None)
-
-#TODO: Create notifications  table
-@route('/notification', method='GET')
-def notification():
-    token = request.query.token
-    sheepid = request.query.sheepid
-    if validate_token(token):
-        result = None
-        if(sheepid == None or sheepid == ""):
-            current_user = str(db_read_single('id', 'bonder', 'token', token))
-            result = db_read_multiple('notification', current_user, None)
-        elif(sheepid != None):
-            result = db_read_multiple('notification', None, sheepid)
-        else:
-            return respond(117, 'InvalidArgument-error', None)
-        if(result != None and result != False):
-            return respond(200, 'Ok', result)
-        else:
-            return respond(131, 'Database-error', None)
-    else:
-        return respond(132, 'No (such) token', None)
-
 
 @route('/sheep/add', method='GET')
 def add_sheep():

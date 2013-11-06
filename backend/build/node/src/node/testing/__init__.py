@@ -1,0 +1,1 @@
+from fullmapping import FullMappingTester

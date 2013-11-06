@@ -1,0 +1,17 @@
+README.rst
+setup.py
+src/plumber/__init__.py
+src/plumber/_behavior.py
+src/plumber/_instructions.py
+src/plumber/_plumber.py
+src/plumber/exceptions.py
+src/plumber.egg-info/PKG-INFO
+src/plumber.egg-info/SOURCES.txt
+src/plumber.egg-info/dependency_links.txt
+src/plumber.egg-info/entry_points.txt
+src/plumber.egg-info/requires.txt
+src/plumber.egg-info/top_level.txt
+src/plumber.egg-info/zip-safe
+src/plumber/tests/__init__.py
+src/plumber/tests/_globalmetaclasstest.py
+src/plumber/tests/test_.py

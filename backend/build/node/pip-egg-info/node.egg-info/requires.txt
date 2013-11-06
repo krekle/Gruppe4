@@ -1,0 +1,15 @@
+setuptools
+odict>1.5
+plumber
+zope.lifecycleevent
+zope.deprecation
+
+[test]
+interlude
+plone.testing
+unittest2
+odict[test]
+plumber[test]
+
+[py24]
+uuid

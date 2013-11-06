@@ -1,0 +1,16 @@
+setup.cfg
+pip-egg-info/plumber.egg-info/PKG-INFO
+pip-egg-info/plumber.egg-info/SOURCES.txt
+pip-egg-info/plumber.egg-info/dependency_links.txt
+pip-egg-info/plumber.egg-info/entry_points.txt
+pip-egg-info/plumber.egg-info/requires.txt
+pip-egg-info/plumber.egg-info/top_level.txt
+pip-egg-info/plumber.egg-info/zip-safe
+src/plumber/__init__.py
+src/plumber/_behavior.py
+src/plumber/_instructions.py
+src/plumber/_plumber.py
+src/plumber/exceptions.py
+src/plumber/tests/__init__.py
+src/plumber/tests/_globalmetaclasstest.py
+src/plumber/tests/test_.py
