@@ -228,16 +228,7 @@ def respond(co, ms, resp):
 
 @route('/register')
 def register():
-    return'''
-        <form action="/register" method="post">
-            Email:    <input type="text" name="email"    />
-            Name:     <input type="text" name="name"     />
-            Password:  <input type="password" name="pswd"/>
-            Phone:     <input type="text" name="phone"   />
-            Address:   <input type="text" name="address" />
-            Vara:      <input type="text" name="vara"    />
-            <input type="submit" value="Register" />
-        </form>'''
+    return static_file('registration.html#toregister', root=os.path.join(os.path.dirname(__file__), 'static'))
 
 @route('/register', method='POST')
 def register():
@@ -261,13 +252,7 @@ def register():
 
 @route('/login')
 def login():
-    return '''
-        <form action="/login" method="post">
-            Email:    <input type="text" name="email" />
-            Password: <input type="password" name="pswd" />
-            <input type="submit" value="Login" />
-        </form>'''
-
+    return static_file('registration.html', root=os.path.join(os.path.dirname(__file__), 'static'))
 
 @route('/login', method='POST')
 def login():
