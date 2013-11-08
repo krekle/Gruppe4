@@ -2,6 +2,7 @@
 import time
 import MySQLdb as mdb
 from random import randint
+from mail import sendmail as mailer
 
 con = mdb.connect('localhost', 'sauadmin', 'dolly', 'prosjektsau')
 cur = con.cursor()

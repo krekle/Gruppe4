@@ -19,6 +19,29 @@ con = db.Connect('localhost', 'sauadmin', 'dolly', 'prosjektsau')
 
 ## Database functions ##
 
+def db_delete_single(table, itemid):
+    result = ""
+    try:
+        cur = con.cursor()
+        cur.execute("DELETE FROM `%s`WHERE id='%s'" % (table, itemid))
+        result = "deleted " + str(itemid)
+        con.commit()
+    except:
+        result = "Nothing deleted"
+    return result
+
+def db_delete_all(table, key, value):
+    result = ""
+    try:
+        cur = con.cursor()
+        cur.execute("DELETE FROM `%s`WHERE `%s`='%s'" % (table, key, value))
+        result = "deleted all from %s where %s = %s" % (table, key, value) 
+        con.commit()
+        return result
+    except:
+        result = "Nothing deleted"
+        return result
+
 def db_read_single(unknown, table, key, value):
 # db_read_single(id, bonder, token, some_token) vil gi
 # id til bruker med some_token
@@ -108,6 +131,24 @@ def sheep():
     else:
         return respond(132,'No (such) token', None)
 
+@route('/sheep/add', method='GET')
+def add_sheep():
+    token = request.query.token
+    if validate_token(token):
+        name = request.query.name
+        age = request.query.age
+        gender = request.query.gender
+        weight = request.query.weight
+        owner = str(db_read_single('id', 'bonder', 'token', token))
+        #TODO: hr, lat, long
+        try:
+            db_insert('sauer', {'name':name, 'age':age, 'gender':gender, 'owner':owner, 'weight':weight})
+            return respond(200, 'Sheep added', None)
+        except:
+            return respond(131, 'Database-error', None)
+    else:
+        return respond(132, 'No (such) token', None)
+
 #TODO: Create notifications  table
 @route('/notification', method='GET')
 def notification():
@@ -129,24 +170,47 @@ def notification():
     else:
         return respond(132, 'No (such) token', None)
 
-
-@route('/sheep/add', method='GET')
-def add_sheep():
+@route('/delete/sheep', method='GET')
+def delete_sheep():
     token = request.query.token
-    if validate_token(token):
-        name = request.query.name
-        age = request.query.age
-        gender = request.query.gender
-        weight = request.query.weight
-        owner = str(db_read_single('id', 'bonder', 'token', token))
-        #TODO: hr, lat, long
-        try:
-            db_insert('sauer', {'name':name, 'age':age, 'gender':gender, 'owner':owner, 'weight':weight})
-            return respond(200, 'Sheep added', None)
-        except:
-            return respond(131, 'Database-error', None)
+    sheepid = request.query.sheepid
+    if validate_token(token): 
+        if sheepid!= None and sheepid != "":
+            resp = db_delete_single('sauer', sheepid)
+            return respond(200, 'Deletion Complete', resp)
+        else:
+            return respond(144, 'Missing id', 'No sheepid in request')
     else:
         return respond(132, 'No (such) token', None)
+
+@route('/delete/notification', method='GET')
+def delete_notification():
+    token = request.query.token
+    notid = request.query.notid
+    if validate_token(token):
+        if notid != None and notid!= "":
+            resp = db_delete_single('notification', notid)
+            return respond(200, 'Deleteion Complete', resp)
+        else:
+            user = str(db_read_single('id', 'bonder', 'token', token))
+            resp = db_delete_all('notification', 'owner', user)
+            return respond(200, 'Deletion Complete', resp)
+    else:
+        return respond(131,'No (such) token', None)
+
+@route('/user', method='GET')
+def get_user():
+    token = request.query.token
+    if validate_token(token):
+        user = str(db_read_single('id', 'bonder', 'token', token))
+        resp = db_read_multiple('farmer', user, None)
+        if resp != None and resp != False:
+            return respond(200, 'Ok', resp)
+        else:
+            return respond(117, 'Database-Error', None)
+    else:
+        return respond(131, 'No (such) token', None)
+
 
 ##########################
 ## Function for writing ##
