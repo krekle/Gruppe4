@@ -169,7 +169,7 @@ public class Sheep {
 
 	public String getMarkerString() {
 		return ("document.setNewMarkerWithParameters('" + getId() + "-"
-				+ getLatitude() + "-" + getLongitude() + "')");
+				+ getLatitude() + "-" + getLongitude() + "-" + getName() + "')");
 	}
 
 	public String genderTostring() {

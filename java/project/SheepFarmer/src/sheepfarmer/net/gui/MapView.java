@@ -48,7 +48,7 @@ public class MapView extends Application {
 			"Weight: unknown", "Respiration: unknown", "OwnerID: unknwon ",
 			"Latitude: unknwon", "Longitude: unknown", "Name: unknown",
 			"Gender: unknown", "Temperature: unknown", "Lifesatus: unknown",
-			"Mood: unknown", "Color: unknown", "Gender: unknown");
+			"Mood: unknown", "Color: unknown");
 	ListView<String> myList = new ListView<String>(names);
 
 	public SplitPane createMap() {
@@ -122,8 +122,12 @@ public class MapView extends Application {
 												+ String.valueOf(sheeps.get(i)
 														.getLongitude()));
 								names.set(8, "Name: " + sheeps.get(i).getName());
-								names.set(9, "OwnerId: "
-										+ sheeps.get(i).genderTostring());
+								names.set(
+										9,
+										"Gender: "
+												+ String.valueOf(sheeps.get(i)
+														.getGen()));
+
 								names.set(10, "Temperature "
 										+ sheeps.get(i).getTemp());
 								names.set(11, "Status: "
@@ -138,11 +142,6 @@ public class MapView extends Application {
 										"Color: "
 												+ String.valueOf(sheeps.get(i)
 														.getCol()));
-								names.set(
-										14,
-										"Gender: "
-												+ String.valueOf(sheeps.get(i)
-														.getGen()));
 
 							}
 
