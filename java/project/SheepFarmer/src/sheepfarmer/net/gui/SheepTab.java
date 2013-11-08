@@ -49,7 +49,7 @@ public class SheepTab extends Application {
 			"ID: Unknown ", "Age: Unknown ", "Heartrate: unknown ",
 			"Weight: unknown", "Respiration: unknown", "OwnerID: unknwon ",
 			"Latitude: unknwon", "Longitude: unknown", "Name: unknown",
-			"Gender: unknown", "Temperature: unknown", "Lifesatus: unknown", "Color: unknown");
+			"Gender: unknown", "Temperature: unknown", "Lifesatus: unknown");
     private VBox master;
     
     ///////Left - Right//////////////
