@@ -114,19 +114,19 @@ def db_update_token(email, token):
 # Static Routes
 @get('/<filename:re:.*\.js>')
 def javascripts(filename):
-    return static_file(filename, root='static/js')
+    return static_file(filename, root=os.path.join(os.path.dirname(__file__), 'static/js'))
 
-@get('/<filename:re:.*\.css>')
+@get('/css/<filename:re:.*\.css>')
 def stylesheets(filename):
-    return static_file(filename, root='static/css')
+    return static_file(filename, root=os.path.join(os.path.dirname(__file__), 'static/css'))
 
-@get('/<filename:re:.*\.(jpg|png|gif|ico)>')
+@get('images/<filename:re:.*\.(jpg|png|gif|ico)>')
 def images(filename):
-    return static_file(filename, root='static/img')
+    return static_file(filename, root=os.path.join(os.path.dirname(__file__), 'static/images'))
 
-@get('/<filename:re:.*\.(eot|ttf|woff|svg)>')
+@get('/fonts/<filename:re:.*\.(eot|ttf|woff|svg)>')
 def fonts(filename):
-    return static_file(filename, root='static/fonts')
+    return static_file(filename, root=os.path.join(os.path.dirname(__file__), 'static/css/fonts'))
 
 ##########################
 ## General purpose      ##
