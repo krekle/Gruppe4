@@ -249,7 +249,7 @@ def respond(co, ms, resp):
 
 @route('/register')
 def register():
-    return static_file('registration.html#toregister', root=os.path.join(os.path.dirname(__file__), 'static'))
+    return static_file('registration.html', root=os.path.join(os.path.dirname(__file__), 'static'))
 
 @route('/register', method='POST')
 def register():
