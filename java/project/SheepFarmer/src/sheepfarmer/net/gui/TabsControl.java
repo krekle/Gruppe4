@@ -28,7 +28,7 @@ public class TabsControl extends Application {
       Button tabA_button = new Button("Button@Tab A");
       tabA.setContent(tabA_button);
       tabPane.getTabs().add(tabA);
-     
+      
       Tab tabB = new Tab();
       tabB.setClosable(false);
       tabB.setText("Sheep");
@@ -36,7 +36,7 @@ public class TabsControl extends Application {
       VBox ro = ma.createView();
       tabB.setContent(ro);
       tabPane.getTabs().add(tabB);
-     
+      
       Tab tabC = new Tab();
       tabC.setClosable(false);
       tabC.setText("Map");
@@ -46,7 +46,6 @@ public class TabsControl extends Application {
       tabPane.getTabs().add(tabC);
       
       mainPane.setCenter(tabPane);
-      
       mainPane.prefHeightProperty().bind(scene.heightProperty());
       mainPane.prefWidthProperty().bind(scene.widthProperty());
       scene.getStylesheets().add("myStyle.css");

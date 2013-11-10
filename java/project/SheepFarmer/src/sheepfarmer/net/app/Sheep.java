@@ -2,31 +2,33 @@ package sheepfarmer.net.app;
 
 import java.security.SecureRandom;
 
+import javafx.beans.property.SimpleStringProperty;
+
 public class Sheep {
 
 	private Mood mood;
 	private Gender gen;
 	private Colour col;
-	private String name, temp, id, age, HR, weight, respiration, ownerid;
+	private SimpleStringProperty name, temp, id, age, hr, weight, respiration, ownerid;
 	double latitude, longitude;
 	private boolean dead;
 
-	public Sheep(String id, String age, String HR, String weight,
-			String respiration, String ownerid, double latitude,
-			double longitude, String name, String gen, String temp, boolean dead) {
-		this.id = id;
-		this.age = age;
-		this.HR = HR;
-		this.weight = weight;
-		this.respiration = respiration;
-		this.ownerid = ownerid;
+	public Sheep(String id, String age, String hr, String weight, String respiration, String ownerid, double latitude, double longitude, String name, String gen, String temp, boolean dead) {
+		this.id = new SimpleStringProperty(id);
+		this.age = new SimpleStringProperty(age);
+		this.hr = new SimpleStringProperty(hr);
+		this.weight = new SimpleStringProperty(weight);
+		this.respiration = new SimpleStringProperty(respiration);
+		this.ownerid = new SimpleStringProperty(ownerid);
+		this.name = new SimpleStringProperty(name);
+		this.temp = new SimpleStringProperty(temp);
+		
 		this.latitude = latitude;
 		this.longitude = longitude;
-		this.setName(name);
 		this.setGen(gen);
 		this.setCol(randomEnum(Colour.class));
 		this.setMood(randomEnum(Mood.class));
-		this.setTemp(temp);
+		
 		this.setDead(dead);
 
 	}
@@ -52,59 +54,59 @@ public class Sheep {
 	}
 
 	public String getName() {
-		return name;
+		return this.name.get();
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.name.set(name);
 	}
 
 	public String getId() {
-		return id;
+		return this.id.get();
 	}
 
 	public void setId(String id) {
-		this.id = id;
+		this.id.set(id);
 	}
 
 	public String getAge() {
-		return age;
+		return this.age.get();
 	}
 
 	public void setAge(String age) {
-		this.age = age;
+		this.age.set(age);
 	}
 
-	public String getHR() {
-		return HR;
+	public String getHr() {
+		return this.hr.get();
 	}
 
-	public void setHR(String hR) {
-		HR = hR;
+	public void setHr(String hr) {
+		this.hr.set(hr);
 	}
 
 	public String getWeight() {
-		return weight;
+		return this.weight.get();
 	}
 
 	public void setWeight(String weight) {
-		this.weight = weight;
+		this.weight.set(weight);
 	}
 
 	public String getRespiration() {
-		return respiration;
+		return this.respiration.get();
 	}
 
 	public void setRespiration(String respiration) {
-		this.respiration = respiration;
+		this.respiration.set(respiration);
 	}
 
 	public String getOwnerid() {
-		return ownerid;
+		return this.ownerid.get();
 	}
 
 	public void setOwnerid(String ownerid) {
-		this.ownerid = ownerid;
+		this.ownerid.set(ownerid);
 	}
 
 	public double getLatitude() {
@@ -160,11 +162,11 @@ public class Sheep {
 	}
 
 	public String getTemp() {
-		return temp;
+		return this.temp.get();
 	}
 
 	public void setTemp(String temp) {
-		this.temp = temp;
+		this.temp.set(temp);
 	}
 
 	public String getMarkerString() {
