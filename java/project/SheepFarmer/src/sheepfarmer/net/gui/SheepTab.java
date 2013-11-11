@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
@@ -22,6 +23,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import jfx.messagebox.MessageBox;
 import sheepfarmer.net.app.Notification;
 import sheepfarmer.net.app.Sheep;
 import sheepfarmer.net.app.Sheep.Colour;
@@ -44,6 +46,7 @@ public class SheepTab extends Application {
     private static Label lb_Grid = new Label("Sheep");
     private static Image currentImage = new Image(imagelist[1]);
     private static ImageView img = new ImageView();
+    private static Sheep currentSheep;
     
     private static ObservableList<String> details = FXCollections.observableArrayList(
 			"ID: Unknown ", "Age: Unknown ", "Heartrate: unknown ",
@@ -68,7 +71,7 @@ public class SheepTab extends Application {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-    	return (ObservableList<Sheep>)FXCollections.observableArrayList(sr.getSheepList());
+    	return FXCollections.observableArrayList(sr.getSheepList());
     			
     }
     
@@ -98,7 +101,7 @@ public class SheepTab extends Application {
         lb_table.setFont(new Font("Arial", 20));
         
         table = new TableView<Sheep>();
-        
+
         TableColumn<Sheep, String> idCol = new TableColumn<Sheep, String>("Id");
         idCol.setCellValueFactory(
         	    new PropertyValueFactory<Sheep,String>("id")
@@ -112,45 +115,59 @@ public class SheepTab extends Application {
         	    new PropertyValueFactory<Sheep,String>("age")
         	);
         TableColumn<Sheep, String> hrCol = new TableColumn<Sheep, String>("Hearth Rate");
-        ageCol.setCellValueFactory(
-        	    new PropertyValueFactory<Sheep,String>("HR")
+        hrCol.setCellValueFactory(
+        	    new PropertyValueFactory<Sheep,String>("hr")
         	);
+        TableColumn<Sheep, String> respCol = new TableColumn<Sheep, String>("Respiration");
+        respCol.setCellValueFactory(
+        	    new PropertyValueFactory<Sheep,String>("respiration")
+        	);
+        TableColumn<Sheep, String> tempCol = new TableColumn<Sheep, String>("Temperature");
+        tempCol.setCellValueFactory(
+        	    new PropertyValueFactory<Sheep,String>("temp")
+        	);
+        
         table.getColumns().clear();
-        table.getColumns().addAll(idCol, nameCol, ageCol, hrCol);
+        table.getColumns().addAll(idCol, nameCol, ageCol, hrCol, respCol, tempCol);
         table.setItems(sheepdata);
         table.setMinHeight(Screen.getPrimary().getVisualBounds().getHeight()*0.80);
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         table.setOnMouseClicked(new EventHandler<Event>() {
 
 			public void handle(Event arg0) {
-				Sheep item = (Sheep)table.getSelectionModel().getSelectedItem();
-				try{
-					if(item.getCol() == Colour.BLACK) currentImage = new Image(imagelist[0]); 
-					else if(item.getCol() == Colour.WHITE) currentImage = new Image(imagelist[1]);
-					else if(item.getCol() == Colour.YELLOW) currentImage = new Image(imagelist[2]);
-					else if(item.getCol() == Colour.GRAY) currentImage = new Image(imagelist[3]);
-					else  currentImage = new Image(imagelist[4]);			
-					img.setImage(currentImage);
-				}catch(Exception e){
-					System.out.println("Nullpointer from tableClick event image");
+				Sheep item = table.getSelectionModel().getSelectedItem();
+				if(item != null){
+					currentSheep = item;
+					try{
+						if(item.getCol() == Colour.BLACK) currentImage = new Image(imagelist[0]); 
+						else if(item.getCol() == Colour.WHITE) currentImage = new Image(imagelist[1]);
+						else if(item.getCol() == Colour.YELLOW) currentImage = new Image(imagelist[2]);
+						else if(item.getCol() == Colour.GRAY) currentImage = new Image(imagelist[3]);
+						else  currentImage = new Image(imagelist[4]);			
+						img.setImage(currentImage);
+					}catch(Exception e){
+						System.out.println("Nullpointer from tableClick event image");
+					}
+				
+					details.set(0, "Id: "+ item.getId());
+					details.set(1, "Age: "+ item.getAge());
+					details.set(2, "Heart-Rate: "+ item.getHr());
+					details.set(3, "Weight: "+ item.getWeight());
+					details.set(4, "Respiration: "+ item.getRespiration());
+					details.set(5, "OwnerId: "+ item.getOwnerid());
+					details.set(6, "Latitude: "+ String.valueOf(item.getLatitude()));
+					details.set(7, "Longitude: "+ String.valueOf(item.getLongitude()));
+					details.set(8, "Temperature "+ item.getTemp());
+					details.set(9, "Status: "+ ((item.isDead())? "Alive":"Dead"));
+					details.set(10,	"Color: "+ String.valueOf(item.getCol()));
+					details.set(11, "Gender: "+ item.getGen().toString());
+					
+					notification = getNotification(item.getId());
+					lb_Grid.setText(String.valueOf(item.getName()));
+					
+
+					refresh();
 				}
-				
-				
-				details.set(0, "Id: "+ item.getId());
-				details.set(1, "Age: "+ item.getAge());
-				details.set(2, "Heart-Rate: "+ item.getHR());
-				details.set(3, "Weight: "+ item.getWeight());
-				details.set(4, "Respiration: "+ item.getRespiration());
-				details.set(5, "OwnerId: "+ item.getOwnerid());
-				details.set(6, "Latitude: "+ String.valueOf(item.getLatitude()));
-				details.set(7, "Longitude: "+ String.valueOf(item.getLongitude()));
-				details.set(8, "Temperature "+ item.getTemp());
-				details.set(9, "Status: "+ ((item.isDead())? "Alive":"Dead"));
-				details.set(10,	"Color: "+ String.valueOf(item.getCol()));
-				details.set(11, "Gender: "+ String.valueOf(item.getGen()));
-				
-				notification = getNotification(item.getId());
-				lb_Grid.setText(String.valueOf(item.getName()));
-				refresh();
 			}
 		});        
         left.setMinHeight(Screen.getPrimary().getVisualBounds().getHeight()-20);
@@ -205,6 +222,18 @@ public class SheepTab extends Application {
         Button editSheep = new Button("Edit..");
         Button deleteSheep = new Button("Delete");
         
+        deleteSheep.setOnAction(new EventHandler<ActionEvent>() {
+
+			public void handle(ActionEvent arg0) {
+				Sheep item = table.getSelectionModel().getSelectedItem();
+				MessageBox.show(null,
+						currentSheep.getName() + " is no more",
+					    "Sheep deleted",
+					     MessageBox.ICON_INFORMATION | MessageBox.OK | MessageBox.CANCEL);
+				
+			}
+		});
+        
         HBox btns = new HBox();
         btns.getChildren().addAll(newSheep, editSheep, deleteSheep);
         
@@ -215,7 +244,7 @@ public class SheepTab extends Application {
     }
     
 	public VBox createView() {
-    	        
+		
 //         Splitting:
 //        	__________
 //        	|   |    |
@@ -224,7 +253,6 @@ public class SheepTab extends Application {
         SplitPane sp1 = new SplitPane();
         createLeft();
         createRight();
-        
         sp1.getItems().addAll(left, right);
         
         master = new VBox();

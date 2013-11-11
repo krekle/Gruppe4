@@ -104,7 +104,7 @@ public class MapView extends Application {
 								names.set(0, "Id: " + sheeps.get(i).getId());
 								names.set(1, "Age: " + sheeps.get(i).getAge());
 								names.set(2, "Heart-Rate: "
-										+ sheeps.get(i).getHR());
+										+ sheeps.get(i).getHr());
 								names.set(3, "Weight: "
 										+ sheeps.get(i).getWeight());
 								names.set(4, "Respiration: "

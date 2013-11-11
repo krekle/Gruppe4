@@ -27,7 +27,7 @@ public class MainViewController extends Application implements CallListener{
 	
 	public void setScene(VBox vb, int x, int y){
 		currentScene = new Scene(vb,((x != 0) ? x:400),((y != 0) ? y:400));
-		currentScene.getStylesheets().add("myStyle.css");
+		currentScene.getStylesheets().add("loginStyle.css");
 	}
 	
 	public void setStage(Stage stage){
@@ -39,14 +39,10 @@ public class MainViewController extends Application implements CallListener{
 	}
 	
 	public void loginCallBack(boolean log) {
-		System.out.println("At the callback");
 		//Login success, Open the main application.
 		TabsControl main = new TabsControl();
-		System.out.println("THis is okay!");
 		Scene scene = main.createView();
-		System.out.println("Got scene!");
 		Stage stage = new Stage();
-		System.out.println("Got stage!");
 		stage.setScene(scene);
 		setStage(stage);
 	}
