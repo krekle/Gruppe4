@@ -41,6 +41,18 @@ public class sheepdb{
 		return new SheepResponse(result, "sheep");
 	}
 	
+	public static SheepResponse getMe(String token) {
+		Client client;
+		String result = "";
+		try {
+			client = new Client("user", Type.GET, "token", token);
+			result = client.execute();
+		} catch (Exception e) {
+			System.out.println("ERR-database client getMe");
+		}
+		return new SheepResponse(result, "farmer");
+	}
+	
 	public static SheepResponse getNotificationUser(String token){
 		try {
 			Client client = new Client("notification", Type.GET, "token", token);
@@ -53,8 +65,14 @@ public class sheepdb{
 	
 	public static SheepResponse getNotificationSheep(String token, String sheepid){
 		try {
-			Client client = new Client("notification", Type.GET, "token", token, "sheepid", sheepid);
-			return new SheepResponse(client.execute(), "notification");
+			if(sheepid != null){
+				Client client = new Client("notification", Type.GET, "token", token, "sheepid", sheepid);
+				return new SheepResponse(client.execute(), "notification");
+			}
+			else{
+				Client client = new Client("notification", Type.GET, "token", token);
+				return new SheepResponse(client.execute(), "notification");
+			}
 		} catch (Exception e) {
 			System.out.println("ERR-getNotificationSheep");
 		}

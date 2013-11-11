@@ -24,9 +24,8 @@ public class TabsControl extends Application {
       Tab tabA = new Tab();
       tabA.setClosable(false);
       tabA.setText("Home");
-      //Add something in Tab
-      Button tabA_button = new Button("Button@Tab A");
-      tabA.setContent(tabA_button);
+      HomeTab home = new HomeTab();
+      tabA.setContent(home.createView());
       tabPane.getTabs().add(tabA);
       
       Tab tabB = new Tab();

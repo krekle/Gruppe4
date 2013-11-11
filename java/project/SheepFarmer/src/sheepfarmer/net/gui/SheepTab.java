@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
@@ -22,6 +23,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import jfx.messagebox.MessageBox;
 import sheepfarmer.net.app.Notification;
 import sheepfarmer.net.app.Sheep;
 import sheepfarmer.net.app.Sheep.Colour;
@@ -44,6 +46,7 @@ public class SheepTab extends Application {
     private static Label lb_Grid = new Label("Sheep");
     private static Image currentImage = new Image(imagelist[1]);
     private static ImageView img = new ImageView();
+    private static Sheep currentSheep;
     
     private static ObservableList<String> details = FXCollections.observableArrayList(
 			"ID: Unknown ", "Age: Unknown ", "Heartrate: unknown ",
@@ -98,9 +101,7 @@ public class SheepTab extends Application {
         lb_table.setFont(new Font("Arial", 20));
         
         table = new TableView<Sheep>();
-        
-        
-        
+
         TableColumn<Sheep, String> idCol = new TableColumn<Sheep, String>("Id");
         idCol.setCellValueFactory(
         	    new PropertyValueFactory<Sheep,String>("id")
@@ -136,6 +137,7 @@ public class SheepTab extends Application {
 			public void handle(Event arg0) {
 				Sheep item = table.getSelectionModel().getSelectedItem();
 				if(item != null){
+					currentSheep = item;
 					try{
 						if(item.getCol() == Colour.BLACK) currentImage = new Image(imagelist[0]); 
 						else if(item.getCol() == Colour.WHITE) currentImage = new Image(imagelist[1]);
@@ -219,6 +221,18 @@ public class SheepTab extends Application {
         Button newSheep = new Button("New..");
         Button editSheep = new Button("Edit..");
         Button deleteSheep = new Button("Delete");
+        
+        deleteSheep.setOnAction(new EventHandler<ActionEvent>() {
+
+			public void handle(ActionEvent arg0) {
+				Sheep item = table.getSelectionModel().getSelectedItem();
+				MessageBox.show(null,
+						currentSheep.getName() + " is no more",
+					    "Sheep deleted",
+					     MessageBox.ICON_INFORMATION | MessageBox.OK | MessageBox.CANCEL);
+				
+			}
+		});
         
         HBox btns = new HBox();
         btns.getChildren().addAll(newSheep, editSheep, deleteSheep);
