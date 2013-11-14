@@ -1,5 +1,6 @@
 package sheepfarmer.net.client;
 
+import sheepfarmer.net.app.Singleton;
 import sheepfarmer.net.client.Client.Type;
 
 public class sheepdb{
@@ -88,6 +89,22 @@ public class sheepdb{
 			result = client.execute();
 		} catch (Exception e) {
 			System.out.println("ERR-database client addSheep");
+		}
+		return new SheepResponse(result, null);
+	}
+	
+	public static SheepResponse deleteSheep(String token, String sheepid){
+		Client client;
+		String result= "";
+		try {
+			if(sheepid != null){
+				client = new Client("delete/sheep", Type.GET, "token", Singleton.getInstance().getToken(), "sheepid", sheepid);
+			} else {
+				client = new Client("delete/sheep", Type.GET, "token", Singleton.getInstance().getToken());
+			}
+			result = client.execute();
+		} catch (Exception e) {
+			System.out.println("ERR-database client deleteSheep");
 		}
 		return new SheepResponse(result, null);
 	}
