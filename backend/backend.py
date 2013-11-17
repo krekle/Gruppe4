@@ -120,7 +120,7 @@ def javascripts(filename):
 def stylesheets(filename):
     return static_file(filename, root=os.path.join(os.path.dirname(__file__), 'static/css'))
 
-@get('images/<filename:re:.*\.(jpg|png|gif|ico)>')
+@get('/images/<filename:re:.*\.(jpg|png|gif|ico)>')
 def images(filename):
     return static_file(filename, root=os.path.join(os.path.dirname(__file__), 'static/images'))
 
