@@ -53,7 +53,7 @@ public class Login extends Application {
 		pswd_fld.setText("password");
 		
 		final TextField eml_fld = new TextField();
-		eml_fld.setText("username");
+		eml_fld.setText("email");
 		
 		Button btn_Login = new Button("Login");
 		btn_Login.setEffect(drop());
@@ -62,26 +62,28 @@ public class Login extends Application {
 		login.getChildren().addAll(eml_fld, pswd_fld, lb_msg, btn_Login);
 		
 		btn_Login.setOnAction(new EventHandler<ActionEvent>() {
-			@SuppressWarnings("static-access")
 			public void handle(ActionEvent arg0) {
-				SheepResponse sr;
-				try {
-					sr = db.login(eml_fld.getText(), pswd_fld.getText());
-					if (sr.getCode().equals(new String("200"))){
-						String token = sr.getSimpleResponse("token");
-						if(token != null){
-							Singleton me = Singleton.getInstance();
-							me.getInstance().setToken(token);
-							controller.loginCallBack(true);
-							}
+				if((!eml_fld.getText().equals(new String("email"))) && (!pswd_fld.getText().equals(new String("password")))){
+					SheepResponse sr;
+					try {
+						sr = sheepdb.login(eml_fld.getText(), pswd_fld.getText());
+						if (sr.getCode().equals(new String("200"))){
+							String token = sr.getSimpleResponse("token");
+							if(token != null){
+								Singleton.getInstance().setToken(token);
+								controller.loginCallBack(true);
+								}
+						}
+						else{
+							lb_msg.setText(sr.getMsg());
+							}	
+					}catch (Exception e) {
+						e.printStackTrace();
+						lb_msg.setText("No Connection to Server");
+						System.out.println("Database ERR");
 					}
-					else{
-						lb_msg.setText(sr.getMsg());
-						}	
-				}catch (Exception e) {
-					lb_msg.setText("No Connection to Server");
-					System.out.println("Database ERR");
-				}
+				}else lb_msg.setText("Don't be cheeky...");
+				
 			}
 		});
 		return login;

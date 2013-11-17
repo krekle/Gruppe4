@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import sheepfarmer.net.app.Notification;
 import sheepfarmer.net.app.Sheep;
+import sheepfarmer.net.app.User;
 
 
 public class SheepResponse {
@@ -28,6 +29,17 @@ public class SheepResponse {
 			sheepList.add(new Sheep(jo.getString("id"), jo.getString("age"), jo.getString("hr"), jo.getString("weight"), jo.getString("respiration"), jo.getString("owner"), Float.parseFloat(jo.getString("lat")), Float.parseFloat(jo.getString("long")), jo.getString("name"), jo.getString("gender"), jo.getString("temp"), ((jo.getString("dead")=="0")?false:true)));
 		}
 		return sheepList;
+	}
+	
+	public User getUser() {
+		User me = null;
+		try {
+			JSONObject jo = arrayResponse.getJSONObject(0);
+			me = new User(jo.getString("name"), jo.getString("email"), jo.getString("address"), jo.getString("vara"), jo.getString("telephone"));
+		} catch (Exception e) {
+			System.out.println("ERR parsing json to me in SheepResponse");
+		}
+		return me;
 	}
 	
 	private ArrayList<Notification> createNotificationList() throws JSONException {

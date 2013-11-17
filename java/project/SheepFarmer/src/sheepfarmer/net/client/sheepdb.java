@@ -1,5 +1,6 @@
 package sheepfarmer.net.client;
 
+import sheepfarmer.net.app.Singleton;
 import sheepfarmer.net.client.Client.Type;
 
 public class sheepdb{
@@ -41,6 +42,18 @@ public class sheepdb{
 		return new SheepResponse(result, "sheep");
 	}
 	
+	public static SheepResponse getMe(String token) {
+		Client client;
+		String result = "";
+		try {
+			client = new Client("user", Type.GET, "token", token);
+			result = client.execute();
+		} catch (Exception e) {
+			System.out.println("ERR-database client getMe");
+		}
+		return new SheepResponse(result, "farmer");
+	}
+	
 	public static SheepResponse getNotificationUser(String token){
 		try {
 			Client client = new Client("notification", Type.GET, "token", token);
@@ -53,8 +66,14 @@ public class sheepdb{
 	
 	public static SheepResponse getNotificationSheep(String token, String sheepid){
 		try {
-			Client client = new Client("notification", Type.GET, "token", token, "sheepid", sheepid);
-			return new SheepResponse(client.execute(), "notification");
+			if(sheepid != null){
+				Client client = new Client("notification", Type.GET, "token", token, "sheepid", sheepid);
+				return new SheepResponse(client.execute(), "notification");
+			}
+			else{
+				Client client = new Client("notification", Type.GET, "token", token);
+				return new SheepResponse(client.execute(), "notification");
+			}
 		} catch (Exception e) {
 			System.out.println("ERR-getNotificationSheep");
 		}
@@ -70,6 +89,22 @@ public class sheepdb{
 			result = client.execute();
 		} catch (Exception e) {
 			System.out.println("ERR-database client addSheep");
+		}
+		return new SheepResponse(result, null);
+	}
+	
+	public static SheepResponse deleteSheep(String token, String sheepid){
+		Client client;
+		String result= "";
+		try {
+			if(sheepid != null){
+				client = new Client("delete/sheep", Type.GET, "token", Singleton.getInstance().getToken(), "sheepid", sheepid);
+			} else {
+				client = new Client("delete/sheep", Type.GET, "token", Singleton.getInstance().getToken());
+			}
+			result = client.execute();
+		} catch (Exception e) {
+			System.out.println("ERR-database client deleteSheep");
 		}
 		return new SheepResponse(result, null);
 	}

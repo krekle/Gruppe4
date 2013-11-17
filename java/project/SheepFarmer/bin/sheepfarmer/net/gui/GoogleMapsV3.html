@@ -12,10 +12,11 @@
     </script>
     <script type="text/javascript">
       function initialize() {
+    	var infowindow = new google.maps.InfoWindow()
     	var myCenter = new google.maps.LatLng(63.43,10.39)
         var mapOptions = {
           center: myCenter,
-          zoom: 15,
+          zoom: 12,
           mapTypeId: google.maps.MapTypeId.ROADMAP  
             };
     	
@@ -26,23 +27,38 @@
         	 
         });
       }
+    
+     
      document.setNewMarkerWithParameters = function setNewMarkerWithParameters(info){
     	 var array = info.split('-');
-    	 var a = array[0], b = array[1], c = array[2];
-    	 var id = (a);
+    	 var a = array[0], b = array[1], c = array[2], d = array[3];
+    	 var id = a;
     	 var lat = parseFloat(b);
     	 var longi = parseFloat(c);
+    	 name = d;
+    	 infowindow = new google.maps.InfoWindow({
+    	      content: name
+    	  });
+    
     	 
     	 var marker=new google.maps.Marker({
     		  position:new google.maps.LatLng(lat,longi),
     		  icon:'sheep1.png',
     		  map:map,
     		  title:id,
+    		  name:name,
+
+
     		  });
     	
-    		
+    	var lastOpened;
     	 google.maps.event.addListener(marker, 'click', function(){
     		 window.alert(marker.title);
+    		 infowindow.close()
+    		 infowindow.setContent(marker.name);
+    		 infowindow.open(map, marker);
+
+    		
     	   });	
     	 
     
