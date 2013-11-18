@@ -23,8 +23,34 @@ import sheepfarmer.net.app.Singleton;
 import sheepfarmer.net.client.SheepResponse;
 import sheepfarmer.net.client.sheepdb;
 
+/**
+ * Returns a SplitPane to the MainViewController Has a constructor with
+ * parameter to use for testing purposes offline When the application is online
+ * it gets information about sheep from the class SheepResponse
+ * 
+ * 
+ * 
+ * @author sondre_dyvik
+ * @param ArrayList
+ *            <Sheep>
+ * @return SplitPane
+ * @see MainViewController
+ * @see SheepResponse
+ * 
+ */
+
 public class MapView extends Application {
+	/**
+	 * This is creates an ArrayList of the type Sheep
+	 */
 	private static ArrayList<Sheep> sheeps = new ArrayList<Sheep>();
+
+	/**
+	 * This is the constructor we use when the application is not in testing
+	 * mode We first create a new variable of the type SheepResponse and try to
+	 * get the appropriate SheepResponse. If this does not work we throw an
+	 * exception. We then put the sheep from the SheepResponse in the ArrayList
+	 */
 
 	public MapView() {
 		upDateSheep();
@@ -39,14 +65,32 @@ public class MapView extends Application {
 		}
 		sheeps = sr.getSheepList();
 	}
+<<<<<<< HEAD
 	
 	
+=======
+
+	/**
+	 * This constructor is used for testing purposes
+	 * 
+	 * @param sheepsForMap
+	 * 
+	 */
+
+>>>>>>> f855d474dbd165972ed094b7a56590d5eeb4c109
 	public MapView(ArrayList<Sheep> sheepsForMap) {
 		sheeps = sheepsForMap;
 
 	}
 
+	/**
+	 * Creates a new MyBrowser
+	 */
 	MyBrowser myBrowser;
+	/**
+	 * Creates an ObservableList to show information about sheep Then puts this
+	 * into a ListView that updates on changes in the ObservableList
+	 */
 
 	static ObservableList<String> names = FXCollections.observableArrayList(
 			"ID: Unknown ", "Age: Unknown ", "Heartrate: unknown ",
@@ -54,7 +98,16 @@ public class MapView extends Application {
 			"Latitude: unknwon", "Longitude: unknown", "Name: unknown",
 			"Gender: unknown", "Temperature: unknown", "Lifesatus: unknown",
 			"Mood: unknown", "Color: unknown");
+
 	ListView<String> myList = new ListView<String>(names);
+
+	/**
+	 * Creates a SplitPane "split" with: a myBrowser in a Vbox that orders all
+	 * objects vertically, and a Vbox with the label "Dine sauer" and then the
+	 * ListView with information about the specified sheep
+	 * 
+	 * @return split
+	 */
 
 	public SplitPane createMap() {
 
@@ -64,13 +117,12 @@ public class MapView extends Application {
 		split.setDividerPositions(0.215);
 
 		VBox right = new VBox();
-		final Label idLabel = new Label("Sheep");
+		final Label idLabel = new Label("Dine sauer");
 		idLabel.setFont(new Font("Arial", 30));
 		right.prefHeight(Screen.getPrimary().getVisualBounds().getHeight());
 		right.minWidth((Screen.getPrimary().getVisualBounds().getWidth() * 0.80));
 		right.getChildren().addAll(myBrowser);
 		VBox left = new VBox();
-		myList.setStyle("-fx-box-border: transparent;");
 		left.prefHeight(Screen.getPrimary().getVisualBounds().getHeight() - 20);
 		left.minWidth((Screen.getPrimary().getVisualBounds().getWidth() * 0.20));
 		left.getChildren().addAll(idLabel, myList);
@@ -80,9 +132,23 @@ public class MapView extends Application {
 	}
 
 	static class MyBrowser extends Region {
+		/**
+		 * This creates a webview and a webEngine
+		 */
 
 		static WebView webView = new WebView();
 		static WebEngine webEngine = webView.getEngine();
+
+		/**
+		 * This is the constructor for the MyBrowser. It uses an html document
+		 * to show the map If there is an event in the map it will read the
+		 * alert that the javascript sends and act appropriatly For the markers
+		 * to be put on the map we have to first make sure that the map has
+		 * finished loading or we will get an error. When you click on the map
+		 * the javascript will send an alert with id of that marker(sheep) Then
+		 * we iterate over the list of sheep to find the appropriate sheep then
+		 * the ObservableList changes and the ListView updates accordingly
+		 */
 
 		public MyBrowser() {
 
@@ -157,9 +223,9 @@ public class MapView extends Application {
 
 				private String parseString(boolean dead) {
 					if (dead == (true)) {
-						return "Dead";
+						return "Alive";
 					}
-					return "Alive";
+					return "Dead";
 				}
 
 			});

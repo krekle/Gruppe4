@@ -1,5 +1,10 @@
 package sheepfarmer.net.app;
 
+/**
+ * 
+ * @author sondre_dyvik This creates a singleton that we use as a session token
+ *         to separate users This class is handled by the database
+ */
 public class Singleton {
 	private String token;
 
