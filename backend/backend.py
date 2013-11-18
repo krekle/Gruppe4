@@ -98,6 +98,20 @@ def db_insert(t, kwargs):
     except:
         return False
 
+def db_update(table, kwargs, uid):
+    sql = "UPDATE %s SET" % (table)
+    for k in kwargs:
+        sql = k + kwargs[k] + " "
+    sql = "WHERE id=%s" % uid
+    try:
+        cur = con.cursor()
+        cur.execute(sql)
+        con.commit()
+    except:
+        return False
+    return True
+
+
 def db_update_token(email, token):
     try: 
         cur = con.cursor()
@@ -120,7 +134,7 @@ def javascripts(filename):
 def stylesheets(filename):
     return static_file(filename, root=os.path.join(os.path.dirname(__file__), 'static/css'))
 
-@get('images/<filename:re:.*\.(jpg|png|gif|ico)>')
+@get('/images/<filename:re:.*\.(jpg|png|gif|ico)>')
 def images(filename):
     return static_file(filename, root=os.path.join(os.path.dirname(__file__), 'static/images'))
 
