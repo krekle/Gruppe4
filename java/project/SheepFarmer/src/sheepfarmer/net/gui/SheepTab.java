@@ -2,15 +2,13 @@ package sheepfarmer.net.gui;
 
 import java.util.ArrayList;
 
-import com.sun.glass.ui.Platform;
-
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
+import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -29,7 +27,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -58,6 +55,7 @@ public class SheepTab extends Application {
     private static Image currentImage = new Image(imagelist[1]);
     private static ImageView img = new ImageView();
     private static Sheep currentSheep;
+    private static Label lb_mood;
     
     private static ObservableList<String> details = FXCollections.observableArrayList(
 			"ID: Unknown ", "Age: Unknown ", "Heartrate: unknown ",
@@ -106,9 +104,8 @@ public class SheepTab extends Application {
     @SuppressWarnings("unchecked")
 	private void createLeft(){
     	left = new VBox();
+    	left.setPadding(new Insets(10));
     	//Generating content
-//    	sheepdata = getsheepDetails();
-    	
     	lb_table = new Label("Sheeps: ");
         lb_table.setFont(new Font("Arial", 20));
         
@@ -141,7 +138,7 @@ public class SheepTab extends Application {
         });
         
         HBox toleft = new HBox();
-        toleft.setSpacing(200.00);
+        toleft.setSpacing(((Screen.getPrimary().getVisualBounds().getWidth()*0.30)-lb_table.getWidth()-txt_search.getWidth()-5));
         toleft.getChildren().addAll(lb_table, txt_search);
         
         table = new TableView<Sheep>();
@@ -215,8 +212,9 @@ public class SheepTab extends Application {
 			}
 		});        
         left.setMinHeight(Screen.getPrimary().getVisualBounds().getHeight()-20);
-        left.setMinWidth((Screen.getPrimary().getVisualBounds().getWidth()*0.34)-20);
+        left.setMinWidth((Screen.getPrimary().getVisualBounds().getWidth()*0.50)-20);
         left.getChildren().addAll(toleft, table);
+        left.setStyle("-fx-box-border: transparent;");
     }
 
     private void createRight(){
@@ -227,8 +225,9 @@ public class SheepTab extends Application {
 //     	|___|____|
         
         right = new VBox();
+        right.setPadding(new Insets(10));
         right.setMinHeight(Screen.getPrimary().getVisualBounds().getHeight()-20);
-        right.setMinWidth((Screen.getPrimary().getVisualBounds().getWidth()*0.66) -20);
+        right.setMinWidth((Screen.getPrimary().getVisualBounds().getWidth()*0.50) -20);
         
         SplitPane sp2 = new SplitPane();
         sp2.setOrientation(Orientation.VERTICAL);
@@ -237,12 +236,12 @@ public class SheepTab extends Application {
         VBox upleft = new VBox();
         VBox upright = new VBox();
         
-        up.setSpacing(100);
+        up.setSpacing(50);
         lb_Grid.setFont(new Font("Arial", 20));
         sheepDetails = new ListView<String>(details);
         sheepDetails.setMaxSize(Screen.getPrimary().getVisualBounds().getHeight() * 0.50, Screen.getPrimary().getVisualBounds().getWidth() * 0.34);
         
-        Label lb_mood = new Label("Mood: ");
+        lb_mood = new Label("Mood: " + (currentSheep != null ? currentSheep.getMood().toString() : "unknown"));
         img.setImage(currentImage);
         
         upleft.getChildren().addAll(lb_Grid, sheepDetails);
@@ -287,7 +286,8 @@ public class SheepTab extends Application {
 					MessageBox.show(null,
 							currentSheep.getName() + " is no more",
 						    "Sheep deleted",
-						     MessageBox.ICON_INFORMATION | MessageBox.OK | MessageBox.CANCEL);	
+						    MessageBox.ICON_INFORMATION | MessageBox.OK | MessageBox.CANCEL);
+							refresh();
 				}	
 				currentSheep = null;
 			}});
@@ -298,6 +298,7 @@ public class SheepTab extends Application {
         down.getChildren().addAll(not, notify, btns);
         
         sp2.getItems().addAll(up, down);
+        sp2.setStyle("-fx-box-border: transparent;");
         right.getChildren().add(sp2);
     }
     
@@ -312,6 +313,7 @@ public class SheepTab extends Application {
         createLeft();
         createRight();
         sp1.getItems().addAll(left, right);
+        sp1.setStyle("-fx-box-border: transparent;");
         
         master = new VBox();
         master.setSpacing(5);
@@ -346,6 +348,7 @@ public class SheepTab extends Application {
 		final TextField txt_gender = new TextField((s == null)? "Gender": s.getGen().toString());
 		final TextField txt_weight = new TextField((s == null)? "Weight": s.getWeight());
 		
+		
 		HBox btns = new HBox();
 		Button btn_done = new Button((s == null)?"Add Sheep":"Save");
 		btn_done.setOnAction(new EventHandler<ActionEvent>() {
@@ -368,7 +371,7 @@ public class SheepTab extends Application {
 		btns.getChildren().addAll(btn_done, btn_cancel);
 		
 		addOrEdit.setSpacing(10.0);
-		addOrEdit.getChildren().addAll(lb_addOrEdit, txt_name, txt_age, txt_gender, txt_weight, btns);
+		addOrEdit.getChildren().addAll(lb_addOrEdit, new Label("Name"), txt_name, new Label("Age"), txt_age, new Label("Gender"), txt_gender, new Label("Weight"), txt_weight, btns);
 		
 		Scene scene = new Scene(addOrEdit, 400, 300, Color.rgb(50, 50, 50));
 		scene.getStylesheets().add("myStyle.css");

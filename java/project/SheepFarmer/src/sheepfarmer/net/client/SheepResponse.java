@@ -2,6 +2,9 @@ package sheepfarmer.net.client;
 
 import java.util.ArrayList;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -70,6 +73,20 @@ public class SheepResponse {
 			System.out.println("ERR-json parsing sheep");
 		}
 		return null;
+	}
+	
+	public ObservableList<String> getChatList() {
+		ObservableList<String> items =FXCollections.observableArrayList ();
+		for (int i = 0; i < arrayResponse.length(); i++) {
+			JSONObject jo;
+			try {
+				jo = arrayResponse.getJSONObject(i);
+				items.add(jo.getString("uname") + System.getProperty("line.separator") + jo.getString("msg"));
+			} catch (JSONException e) {
+				System.out.println("ERR-parsing json Chat in SheepResponse");
+			}
+		}
+		return items;
 	}
 
 	public SheepResponse(String resp, String var){

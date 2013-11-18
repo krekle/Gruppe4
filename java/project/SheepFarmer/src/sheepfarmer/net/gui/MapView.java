@@ -57,15 +57,15 @@ public class MapView extends Application {
 
 		SplitPane split = new SplitPane();
 		split.setDividerPositions(0.215);
-		Label newText = new Label("PUT SOMETHING HERE?");
 
 		VBox right = new VBox();
-		final Label idLabel = new Label("Dine sauer");
+		final Label idLabel = new Label("Sheep");
 		idLabel.setFont(new Font("Arial", 30));
 		right.prefHeight(Screen.getPrimary().getVisualBounds().getHeight());
 		right.minWidth((Screen.getPrimary().getVisualBounds().getWidth() * 0.80));
-		right.getChildren().addAll(myBrowser, newText);
+		right.getChildren().addAll(myBrowser);
 		VBox left = new VBox();
+		myList.setStyle("-fx-box-border: transparent;");
 		left.prefHeight(Screen.getPrimary().getVisualBounds().getHeight() - 20);
 		left.minWidth((Screen.getPrimary().getVisualBounds().getWidth() * 0.20));
 		left.getChildren().addAll(idLabel, myList);

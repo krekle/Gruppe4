@@ -1,5 +1,7 @@
 package sheepfarmer.net.client;
 
+import java.net.URLEncoder;
+
 import sheepfarmer.net.app.Singleton;
 import sheepfarmer.net.client.Client.Type;
 
@@ -108,21 +110,56 @@ public class sheepdb{
 		}
 		return new SheepResponse(result, null);
 	}
-
-//	public static void main(String[] args) throws Exception{
-//		SheepResponse sr = login("kristian.ekle@gmail.com", "kristian");
-//		System.out.println(sr.getSimpleResponse("token"));
-//		SheepResponse sr = getNotificationSheep("sheep$5b143a12d244ebe20db603d85f622211ed483780", "1");
-//		ArrayList<Notification> not = sr.getNotificationList();
-//		for (int i = 0; i < not.size(); i++) {
-//			System.out.println(not.get(i).getMsg());
-			
-//		}
-		//Working - System.out.print(register("Christof.kekle@gmail.com", "Christobar", "chritof", "32578532", "Someplace", "kristian.ekle@gmail.com")[2]);
-		//System.out.print(addSheep("Birgitte", "13", "Female", "44", "sheep$635689a8574f4c4c60d343bb378384bfdc5d27a3")[1]);
-//		SheepResponse sr = getSheep("sheep$fdfd0e4159ec79b2885553e0f02262198d37ab0d");
-//		ArrayList<Sheep> sheeps = sr.getSheepList();
-//	}
-
-
+	
+	public static SheepResponse editSheep(String sheepid, String name, String weight, String gender, String age){
+		Client client;
+		String result = "";
+		try {
+			client = new Client("edit", Type.GET, "token", Singleton.getInstance().getToken(), "uid", sheepid, "name", name, "weight", weight, "gender", gender, "age", age);
+			result = client.execute();
+		} catch (Exception e) {
+			System.out.println("Err-database client editSheep");
+		}
+		return new SheepResponse(result, null);
+		
+	}
+	
+	public static SheepResponse editUser(String email, String name, String mail, String vara, String phone, String address){
+		Client client;
+		String result = "";
+		try {
+			client = new Client("edit", Type.GET, "token", Singleton.getInstance().getToken(), "email", email, "name", name, "vara", vara, "phone", phone, "address", address);
+			result = client.execute();
+		} catch (Exception e) {
+			System.out.println("Err-database client editSheep");
+		}
+		return new SheepResponse(result, null);
+		
+	}
+	
+	public static SheepResponse addChatMessage(String msg){
+		Client client;
+		String result = "";
+		try {
+			System.out.println("Chat added!");
+			client = new Client("add/sheepchat", Type.GET, "token", Singleton.getInstance().getToken(), "msg", (String)URLEncoder.encode(msg,"UTF-8"));
+			result = client.execute();
+		} catch (Exception e) {
+			System.out.println("Err-database client addChatMessage");
+			e.printStackTrace();
+		}
+		return new SheepResponse(result, null);
+	}
+	
+	public static SheepResponse getChat(){
+		Client client;
+		String result = "";
+		try {
+			client = new Client("get/sheepchat", Type.GET, "token", Singleton.getInstance().getToken());
+			result = client.execute();
+		} catch (Exception e) {
+			System.err.println("Err-database client getChat");
+		}
+		return new SheepResponse(result, "chat");
+	}
 }
