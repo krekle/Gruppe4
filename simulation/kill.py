@@ -53,25 +53,27 @@ for she in sheep:
     if(kill == 2):
         email = db_read_single('email', 'bonder', 'id', owner)
         vara = db_read_single('vara', 'bonder', 'email', email)
-        msg = str(name) + """ was attacked, but is alright.\n
+        msgN = str(name) + " was attacked, but is alright."
+        msgM = str(name) + """ was attacked, but is alright.\n
         Location of this attack can be seen at:\n
         https://maps.google.no/?q=loc:%s,%s+(This+is+where+%s+was+attacked)&z=19&output=embed
         """ % (str(lat), str(lng), str(name))
         level = "3"
         death = randint(0,5)
         if(death == 2):
-            msg = str(name) + """ was attacked and killed!/n 
+            msgN = str(name) + " was attacked and killed!"
+            msgM = str(name) + """ was attacked and killed!/n 
             Location of this attack can be seen at:\n  
             https://maps.google.no/?q=loc:%s,%s+(This+is+where+%s+was+attacked+and+killed&z=19&output=embed
             """ % (str(lat), str(lng), str(name))
             level = "4"
         
         #Mail to owner
-        mailer(str(email), 'no-replay@sheepfarmer3000.no', 'Sheep Attack[' + str(name) + ']', str(msg))
+        mailer(str(email), 'no-replay@sheepfarmer3000.no', 'Sheep Attack[' + str(name) + ']', str(msgM))
         #Mail to vara
         if(vara != None and vara != ""):
-            mailer(str(vara), 'no-replay@sheepfarmer3000.no', 'Sheep Attack['+str(name)+']', str(msg))
-        db_insert_not(owner, sheepid, level, msg, lat, lng)
+            mailer(str(vara), 'no-replay@sheepfarmer3000.no', 'Sheep Attack['+str(name)+']', str(msgM))
+        db_insert_not(owner, sheepid, level, msgN, lat, lng)
         ## TODO: insert dead=1 in sheep.
 
 
