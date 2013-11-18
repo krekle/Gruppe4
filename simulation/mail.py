@@ -7,7 +7,7 @@ from email.mime.text import MIMEText
 def sendmail(toaddr, fromaddr, subject, msg):
     msg = MIMEText(msg)
     msg['To'] = email.utils.formataddr(('Recipient', toaddr))
-    msg['From'] = email.utils.formataddr(('No-replay@sheepfarmer3000.no', fromaddr))
+    msg['From'] = email.utils.formataddr(('no-replay@sheepfarmer3000.no', fromaddr))
     msg['Subject'] = subject
 
     server = smtplib.SMTP('smtp.gmail.com', 587)
