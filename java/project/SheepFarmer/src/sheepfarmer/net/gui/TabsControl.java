@@ -1,6 +1,8 @@
 package sheepfarmer.net.gui;
 
 import javafx.application.Application;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
@@ -35,11 +37,19 @@ public class TabsControl extends Application {
       tabB.setContent(ro);
       tabPane.getTabs().add(tabB);
       
-      Tab tabC = new Tab();
+      final Tab tabC = new Tab();
       tabC.setClosable(false);
       tabC.setText("Map");
-      MapView map = new MapView();
-      tabC.setContent(map.createMap());
+//      final MapView map = new MapView();
+      tabC.setOnSelectionChanged(new EventHandler<Event>() {
+		public void handle(Event arg0) {
+			MapView map = new MapView();
+			MapView.upDateSheep();
+			tabC.setContent(map.createMap());
+		}
+	});
+      
+      //tabC.setContent(map.createMap());
       tabC.setDisable(false);
       tabPane.getTabs().add(tabC);
       

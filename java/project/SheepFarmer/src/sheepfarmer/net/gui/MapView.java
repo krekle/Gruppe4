@@ -27,6 +27,10 @@ public class MapView extends Application {
 	private static ArrayList<Sheep> sheeps = new ArrayList<Sheep>();
 
 	public MapView() {
+		upDateSheep();
+	}
+
+	public static void upDateSheep(){
 		SheepResponse sr = null;
 		try {
 			sr = sheepdb.getSheep(Singleton.getInstance().getToken());
@@ -35,7 +39,8 @@ public class MapView extends Application {
 		}
 		sheeps = sr.getSheepList();
 	}
-
+	
+	
 	public MapView(ArrayList<Sheep> sheepsForMap) {
 		sheeps = sheepsForMap;
 

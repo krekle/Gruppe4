@@ -130,7 +130,7 @@ public class Sheep {
 	}
 
 	public void setGen(String gen) {
-		if (gen == "Male") {
+		if (gen.equalsIgnoreCase("Male")) {
 			this.gen = Gender.MALE;
 		} else {
 			this.gen = Gender.FEMALE;
