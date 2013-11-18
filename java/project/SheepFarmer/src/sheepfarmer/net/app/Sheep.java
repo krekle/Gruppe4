@@ -4,16 +4,41 @@ import java.security.SecureRandom;
 
 import javafx.beans.property.SimpleStringProperty;
 
+/**
+ * This controls the fields for each separate sheep
+ * 
+ */
+
 public class Sheep {
 
 	private Mood mood;
 	private Gender gen;
 	private Colour col;
-	private SimpleStringProperty name, temp, id, age, hr, weight, respiration, ownerid;
+	private SimpleStringProperty name, temp, id, age, hr, weight, respiration,
+			ownerid;
 	double latitude, longitude;
 	private boolean dead;
 
-	public Sheep(String id, String age, String hr, String weight, String respiration, String ownerid, double latitude, double longitude, String name, String gen, String temp, boolean dead) {
+	/**
+	 * This is the constructor for the class
+	 * 
+	 * @param id
+	 * @param age
+	 * @param hr
+	 * @param weight
+	 * @param respiration
+	 * @param ownerid
+	 * @param latitude
+	 * @param longitude
+	 * @param name
+	 * @param gen
+	 * @param temp
+	 * @param dead
+	 */
+
+	public Sheep(String id, String age, String hr, String weight,
+			String respiration, String ownerid, double latitude,
+			double longitude, String name, String gen, String temp, boolean dead) {
 		this.id = new SimpleStringProperty(id);
 		this.age = new SimpleStringProperty(age);
 		this.hr = new SimpleStringProperty(hr);
@@ -22,16 +47,20 @@ public class Sheep {
 		this.ownerid = new SimpleStringProperty(ownerid);
 		this.name = new SimpleStringProperty(name);
 		this.temp = new SimpleStringProperty(temp);
-		
+
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.setGen(gen);
 		this.setCol(randomEnum(Colour.class));
 		this.setMood(randomEnum(Mood.class));
-		
+
 		this.setDead(dead);
 
 	}
+
+	/**
+	 * This is a random generator to randomize the enums mood, color and gender.
+	 */
 
 	private static final SecureRandom random = new SecureRandom();
 
@@ -169,6 +198,13 @@ public class Sheep {
 		this.temp.set(temp);
 	}
 
+	/**
+	 * This creates a string on a form that can be interpreted as a command by
+	 * the javascript in the html document.
+	 * 
+	 * @return
+	 */
+
 	public String getMarkerString() {
 		return ("document.setNewMarkerWithParameters('" + getId() + "-"
 				+ getLatitude() + "-" + getLongitude() + "-" + getName() + "')");
@@ -178,7 +214,7 @@ public class Sheep {
 		if (this.gen == Gender.MALE) {
 			return "Male";
 		}
-		return "female";
+		return "Female";
 	}
 
 }
