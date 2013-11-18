@@ -1,4 +1,4 @@
-from mailtest import sendmail as mail
+from mail import sendmail as mail
 
 
 toaddr = str(raw_input("recipient: "))

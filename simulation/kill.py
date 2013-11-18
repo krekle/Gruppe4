@@ -2,6 +2,7 @@
 import time
 import MySQLdb as mdb
 from random import randint
+from mail import sendmail as mailer
 
 con = mdb.connect('localhost', 'sauadmin', 'dolly', 'prosjektsau')
 cur = con.cursor()
@@ -9,7 +10,7 @@ cur = con.cursor()
 cur.execute("SELECT * FROM sauer")
 sheep = cur.fetchall()
 
-def db_insert(owner, sheepid, level, msg, lat, lng):
+def db_insert_not(owner, sheepid, level, msg, lat, lng):
     sql = "INSERT INTO `notifications` (`id`, `owner`, `sheepid`, `level`, `msg`, `lat`, `lng`, `datime`) VALUES (NULL, '%s', '%s', '%s', '%s', '%s', '%s', '%s')" % (owner, sheepid, level, msg, lat, lng, str(time.strftime("%d/%m/%y - %H:%M"))) 
     try:
         cur = con.cursor()
@@ -18,6 +19,18 @@ def db_insert(owner, sheepid, level, msg, lat, lng):
         return True
     except:
         return False
+def db_read_single(unknown, table, key, value):
+# db_read_single(id, bonder, token, some_token) vil gi
+# id til bruker med some_token
+    try:    
+        cur = con.cursor()
+        cur.execute("SELECT `%s` FROM `%s` WHERE `%s` = '%s'" % (unknown, table, key, value))
+        data = cur.fetchone()
+    except:
+        return False
+    return str(data[0])
+
+
 
 for she in sheep:
     sheepid = str(she[0])
@@ -33,26 +46,33 @@ for she in sheep:
     gender = str(she[10])
     owner = str(she[11])
     
-    #output:
+    kill = randint(0, 10)
     msg = ""
     level = ""
-
-    #if clusterfuck:
-    if(dead != "0"):
-        msg = name , "is now dead"
+    
+    if(kill == 2):
+        email = db_read_single('email', 'bonder', 'id', owner)
+        vara = db_read_single('vara', 'bonder', 'email', email)
+        msg = str(name) + """ was attacked, but is alright.\n
+        Location of this attack can be seen at:\n
+        https://maps.google.no/?q=loc:%s,%s+(This+is+where+%s+was+attacked)&z=19&output=embed
+        """ % (str(lat), str(lng), str(name))
         level = "3"
-        db_insert(owner, sheepid, level, msg, lat, lng)
-    if(hr >= 90 or hr <= 61):
-        msg = name + " has an irregular hearth-rate: " + hr
-        level = "2"
-        db_insert(owner, sheepid, level, msg, lat, lng)
-    if(temp >= 40 or temp <= 36):
-        msg = name + " has an irregular temperature: " + temp
-        level = "1"
-        db_insert(owner, sheepid, level, msg, lat, lng)
-    if(respiration >= 20 or respiration <= 12):
-        msg = name + " has an irregular respiration: " + respiration
-        level = "2"
-        db_insert(owner, sheepid, level, msg, lat, lng)
+        death = randint(0,5)
+        if(death == 2):
+            msg = str(name) + """ was attacked and killed!/n 
+            Location of this attack can be seen at:\n  
+            https://maps.google.no/?q=loc:%s,%s+(This+is+where+%s+was+attacked+and+killed&z=19&output=embed
+            """ % (str(lat), str(lng), str(name))
+            level = "4"
+        
+        #Mail to owner
+        mailer(str(email), 'no-replay@sheepfarmer3000.no', 'Sheep Attack[' + str(name) + ']', str(msg))
+        #Mail to vara
+        if(vara != None and vara != ""):
+            mailer(str(vara), 'no-replay@sheepfarmer3000.no', 'Sheep Attack['+str(name)+']', str(msg))
+        db_insert_not(owner, sheepid, level, msg, lat, lng)
+        ## TODO: insert dead=1 in sheep.
+
 
 

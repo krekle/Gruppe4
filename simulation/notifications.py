@@ -40,19 +40,19 @@ for she in sheep:
 
     #if clusterfuck:
     if(dead != "0"):
-        msg = name , "is now dead"
+        msg = name , "is dead."
         level = "3"
         db_insert(owner, sheepid, level, msg, lat, lng)
     if(hr >= 90 or hr <= 61):
-        msg = name + " has an irregular hearth-rate: " + hr
+        msg = name + " has an irregular hearth-rate: " + hr + "bpm."
         level = "2"
         db_insert(owner, sheepid, level, msg, lat, lng)
     if(temp >= 40 or temp <= 36):
-        msg = name + " has an irregular temperature: " + temp
+        msg = name + " has an irregular temperature: " + temp + "degrees celcius."
         level = "1"
         db_insert(owner, sheepid, level, msg, lat, lng)
     if(respiration >= 20 or respiration <= 12):
-        msg = name + " has an irregular respiration: " + respiration
+        msg = name + " has an irregular respiration: " + respiration + "lpm."
         level = "2"
         db_insert(owner, sheepid, level, msg, lat, lng)
 
