@@ -65,10 +65,6 @@ public class MapView extends Application {
 		}
 		sheeps = sr.getSheepList();
 	}
-<<<<<<< HEAD
-	
-	
-=======
 
 	/**
 	 * This constructor is used for testing purposes
@@ -77,7 +73,6 @@ public class MapView extends Application {
 	 * 
 	 */
 
->>>>>>> f855d474dbd165972ed094b7a56590d5eeb4c109
 	public MapView(ArrayList<Sheep> sheepsForMap) {
 		sheeps = sheepsForMap;
 
