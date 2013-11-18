@@ -29,8 +29,9 @@ public class HomeTab {
 
 	private static ObservableList<String> notification;
 	
-	private static ObservableList<String> chat;
+	public static ObservableList<String> chat;
 	
+	private static User me;
 	
 	private ObservableList<String> getNotification(){
 		SheepResponse sr = null;
@@ -54,7 +55,7 @@ public class HomeTab {
 		
 		//Getting user from server
 		SheepResponse sr = sheepdb.getMe(Singleton.getInstance().getToken());
-		User me = sr.getUser();
+		me = sr.getUser();
 		sr = sheepdb.getChat();
 		
 		//Getting notifications from the server
@@ -83,14 +84,22 @@ public class HomeTab {
 		lb_chat.setFont(new Font("Arial", 20));
 		ListView<String> chatList = new ListView<String>();
 		chatList.setItems(chat);
+		chatList.scrollTo(0);
 		final TextField txt_chat = new TextField();
 		txt_chat.setPrefWidth(chatList.getPrefWidth());
+		
+//		Thread = new Thread(null, name){
+//			
+//		}
+		
 		txt_chat.setOnKeyReleased(new EventHandler<KeyEvent>() {
 
 			public void handle(KeyEvent arg0) {
 				if(arg0.getCode().equals(KeyCode.ENTER)){
 					if(txt_chat.getText().toString() != null && !txt_chat.getText().toString().equalsIgnoreCase("")){
-						sheepdb.addChatMessage(txt_chat.getText().toString());
+						sheepdb.addChatMessage(txt_chat.getText().toString().replace(" ", "+"));
+						chat.add(me.getName() + System.getProperty("line.separator") + txt_chat.getText().toString());
+						txt_chat.setText("");
 					} 
 				}
 			}

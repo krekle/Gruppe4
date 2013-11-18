@@ -81,7 +81,7 @@ public class SheepResponse {
 			JSONObject jo;
 			try {
 				jo = arrayResponse.getJSONObject(i);
-				items.add(jo.getString("uname") + System.getProperty("line.separator") + jo.getString("msg"));
+				items.add(jo.getString("uname") + System.getProperty("line.separator") + jo.getString("msg").replace("+", " "));
 			} catch (JSONException e) {
 				System.out.println("ERR-parsing json Chat in SheepResponse");
 			}

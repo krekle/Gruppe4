@@ -357,6 +357,8 @@ public class SheepTab extends Application {
 				Button  btn = (Button)  arg0.getSource();
 				Node source = (Node) btn.getParent();
 			    Stage stage  = (Stage) source.getScene().getWindow();
+			    sheepdata = getsheepDetails();
+			    refresh();
 			    stage.close();
 			}});
 		Button btn_cancel = new Button("Cancel");

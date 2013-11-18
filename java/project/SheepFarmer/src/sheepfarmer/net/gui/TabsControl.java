@@ -40,16 +40,15 @@ public class TabsControl extends Application {
       final Tab tabC = new Tab();
       tabC.setClosable(false);
       tabC.setText("Map");
-//      final MapView map = new MapView();
+      MapView map = new MapView();
       tabC.setOnSelectionChanged(new EventHandler<Event>() {
 		public void handle(Event arg0) {
 			MapView map = new MapView();
-			MapView.upDateSheep();
 			tabC.setContent(map.createMap());
 		}
 	});
       
-      //tabC.setContent(map.createMap());
+      tabC.setContent(map.createMap());
       tabC.setDisable(false);
       tabPane.getTabs().add(tabC);
       

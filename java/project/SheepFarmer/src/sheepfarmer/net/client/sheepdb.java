@@ -142,7 +142,7 @@ public class sheepdb{
 		String result = "";
 		try {
 			System.out.println("Chat added!");
-			client = new Client("add/sheepchat", Type.GET, "token", Singleton.getInstance().getToken(), "msg", (String)URLEncoder.encode(msg,"UTF-8"));
+			client = new Client("add/sheepchat", Type.GET, "token", Singleton.getInstance().getToken(), "msg", msg);
 			result = client.execute();
 		} catch (Exception e) {
 			System.out.println("Err-database client addChatMessage");

@@ -123,6 +123,7 @@ public class MapView extends Application {
 		left.getChildren().addAll(idLabel, myList);
 
 		split.getItems().addAll(left, right);
+		split.setStyle("-fx-box-border: transparent;");
 		return split;
 	}
 
