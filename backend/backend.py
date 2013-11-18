@@ -66,6 +66,11 @@ def db_read_multiple(lifeform, userid, sheepid):
         sql = "SELECT * from `notifications` WHERE `owner`= '%s'" % (userid)
     elif lifeform == "notification" and userid == None and sheepid != None:
         sql = "SELECT * from `notifications` WHERE `sheepid` = '%s'" % (sheepid)
+    elif lifeform == "chat"  and userid == None:
+        sql = "SELECT * from `chat`"
+    elif lifeform == "chat" and userid != None:
+        sql = "SELECT * from `chat` WHERE `uid` = '%s'" % (userid)
+        
     try:
         cur = con.cursor()
         cur.execute(sql)
@@ -177,7 +182,7 @@ def add_sheep():
         owner = str(db_read_single('id', 'bonder', 'token', token))
         #TODO: hr, lat, long
         try:
-            db_insert('sauer', {'name':name, 'age':age, 'gender':gender, 'owner':owner, 'weight':weight})
+            db_insert('sauer', {'name':name, 'age':age, 'gender':gender, 'owner':owner, 'weight':weight, 'lat':'63.43', 'long':'10.12' })
             return respond(200, 'Sheep added', None)
         except:
             return respond(131, 'Database-error', None)
@@ -246,6 +251,76 @@ def get_user():
     else:
         return respond(131, 'No (such) token', None)
 
+@route('/edit', method='GET')
+def edit_user():
+    token = request.query.token
+    sheepid = request.query.uid
+    #User
+    #sheep
+    if validate_token(token):
+        d = {}
+        if sheepid != "" or sheepid != None:
+            user = str(db_read_single('id', 'bonder', 'token', token))
+            d['name'] = request.query.name
+            d['mail'] = request.query.mail
+            d['vara'] = request.query.vara
+            d['telephone'] = request.query.phone
+            d['address'] = request.query.address
+            for k in d:
+                if(d[k] == None or d[k] == ""):
+                    del d[k]
+            result = db_update("bonder", d, user)
+            if(result == True):
+                return respond(200, "Sheep updated", None)
+            else:
+                return respond(133, "DataBase-Error", None)
+        elif sheepid == "" or sheepid == None:
+            d['name'] = request.query.name
+            d['age'] = request.query.name
+            d['weight'] = request.query.name
+            d['Gender'] = request.query.name
+            for k in d:
+                if(d[k] == None or d[k] == ""):
+                    del d[k]
+            result = db_update("sauer", d, sheepid)
+            if(result == True):
+                return respond(200, "Sheep updated", None)
+            else:
+                return respond(131, "DataBase-Error", None)
+    else:
+        return respond(131, "No (such) token", None)
+
+
+@route('/add/sheepchat', method='GET')
+def sheepchat():
+    d = {}
+    d['msg'] = request.query.msg
+    token = request.query.token
+    if validate_token(token):
+        d['uid'] = str(db_read_single('id', 'bonder', 'token', token))
+        d['user'] = str(db_read_single('name', 'bonder', 'token', token))
+        result = db_insert('chat', d)
+        if (result != False):
+            return respond(200, 'ChatLog updated', None)
+        else:
+            return respond(133, 'DataBase-Err', d)
+    else:
+        return respond(131, 'No (such) token', None)
+
+@route('/get/sheepchat', method='GET')
+def sheepchat():
+    token = request.query.token
+    user = request.query.token
+    if validate_token(token):
+        uid = str(db_read_single('id', 'bonder', 'token', token))
+        result = db_read_multiple("chat", None, None) 
+        if (result != False and result != None):
+            return respond(200, 'ChatLog updated', result)
+        else:
+            return respond(133, 'DataBase-Err', None)
+    else:
+        return respond(131, 'No (such) token', None)
+        
 
 ##########################
 ## Function for writing ##
