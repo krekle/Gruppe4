@@ -298,7 +298,7 @@ def sheepchat():
     token = request.query.token
     if validate_token(token):
         d['uid'] = str(db_read_single('id', 'bonder', 'token', token))
-        d['user'] = str(db_read_single('name', 'bonder', 'token', token))
+        d['uname'] = str(db_read_single('name', 'bonder', 'token', token))
         result = db_insert('chat', d)
         if (result != False):
             return respond(200, 'ChatLog updated', None)
