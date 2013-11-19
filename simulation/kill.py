@@ -29,7 +29,14 @@ def db_read_single(unknown, table, key, value):
     except:
         return False
     return str(data[0])
-
+def db_update(uid):
+    try:
+        cur = con.cursor()
+        sql = 'UPDATE sauer SET dead="1", hr="0", respiration="0", temp="0" WHERE id="%s"' % (uid)
+        cur.execute(sql)
+        con.commit()
+    except:
+        print("Error writin in sau")
 
 
 for she in sheep:
@@ -62,11 +69,12 @@ for she in sheep:
         death = randint(0,5)
         if(death == 2):
             msgN = str(name) + " was attacked and killed!"
-            msgM = str(name) + """ was attacked and killed!/n 
+            msgM = str(name) + """ was attacked and killed!\n 
             Location of this attack can be seen at:\n  
-            https://maps.google.no/?q=loc:%s,%s+(This+is+where+%s+was+attacked+and+killed&z=19&output=embed
+            https://maps.google.no/?q=loc:%s,%s+(This+is+where+%s+was+attacked+and+killed)&z=19&output=embed
             """ % (str(lat), str(lng), str(name))
             level = "4"
+            db_update(sheepid)
         
         #Mail to owner
         mailer(str(email), 'no-replay@sheepfarmer3000.no', 'Sheep Attack[' + str(name) + ']', str(msgM))

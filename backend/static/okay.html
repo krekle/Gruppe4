@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6 lt8"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="en" class="no-js ie7 lt8"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="en" class="no-js ie8 lt8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="UTF-8" />
+        <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  -->
+        <title>SheepFarmer 3000</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <meta name="description" content="SheepFarmer 3000 Login and Registration" />
+        <link rel="shortcut icon" href="/images/favicon.ico"> 
+        <link rel="stylesheet" type="text/css" href="/css/demo.css" />
+        <link rel="stylesheet" type="text/css" href="/css/style.css" />
+	<link rel="stylesheet" type="text/css" href="/css/animate-custom.css" />
+    </head>
+    <body>
+        <div class="container">
+            <!-- Codrops top bar -->
+            <div class="codrops-top">
+                <span class="right">
+                </span>
+                <div class="clr"></div>
+            </div><!--/ Codrops top bar -->
+            <header>
+                <h1>SheepFarmer <span>3000</span></h1>
+            </header>
+            <section>				
+                <div id="container_demo" >
+                    <a class="hiddenanchor" id="toregister"></a>
+                    <a class="hiddenanchor" id="tologin"></a>
+
+                        <div id="register" class="animate form">
+                            <form  action="/register" method="post" autocomplete="on"> 
+                                <h1> Register  </h1> 
+                                <p> 
+                                    <label for="usernamesignup" class="uname" data-icon="u">Your name </label>
+                                    <input id="usernamesignup" name="name" required="required" type="text" placeholder="eg. mysheepyusername1337" />
+                                </p>
+                                <p> 
+                                    <label for="emailsignup" class="youmail" data-icon="m" >Your email </label>
+                                    <input id="emailsignup" name="email" required="required" type="email" placeholder="eg. mysheepymail@mail.com"/> 
+                                </p>
+                                <p> 
+                                    <label for="passwordsignup" class="youpasswd" data-icon="p">Your password </label>
+                                    <input id="passwordsignup" name="pswd" required="required" type="password" placeholder="eg. X8df!90EO"/>
+                                </p>
+                                <p> 
+                                    <label for="passwordsignup_confirm" class="youpasswd" data-icon="p">Please confirm your password </label>
+                                    <input id="passwordsignup_confirm" name="pswd_confirm" required="required" type="password" placeholder="eg. X8df!90EO"/>
+								</p>
+								<p> 
+                                    <label for="addresssignup" class="youaddrs" data-icon="l" >Address </label>
+                                    <input id="addresssignup" name="address" required="required" type="text" placeholder="eg. Street 23, 7042 Trondheim"/> 
+                                </p>
+								<p> 
+                                    <label for="phonesignup" class="youphone" data-icon="n" >Phone number</label>
+                                    <input id="phonesignup" name="phone" required="required" type="text" placeholder="eg. mysheepyfriend@mail.com"/> 
+                                </p>
+								<p> 
+                                    <label for="emailsignup" class="youmail" data-icon="d" >Deputy email </label>
+                                    <input id="emailsignup" name="vara" required="required" type="email" placeholder="eg. mysheepyfriend@mail.com"/> 
+                                </p>
+								
+                                <p class="signin button"> 
+									<input type="submit" value="Register"/> 
+								</p>
+                                <p class="change_link">  
+									Already a user ?
+									<a href="#tologin" class="to_register"> Go back and log in </a>
+								</p>
+                            </form>
+                        </div>
+                         <div id="container_demo" >
+                    <a class="hiddenanchor" id="toregister"></a>
+                    <a class="hiddenanchor" id="tologin"></a>
+                    <div id="wrapper">
+                        <div id="login" class="animate form">
+                            <form  action="/login" method="post" autocomplete="on"> 
+                                <h1>Log in</h1> 
+                                <p> 
+                                    <label for="username" class="uname" data-icon="u" > Your email </label>
+                                    <input id="username" name="email" required="required" type="text" placeholder="eg. mymail@mail.com"/>
+                                </p>
+                                <p> 
+                                    <label for="password" class="youpasswd" data-icon="p"> Your password </label>
+                                    <input id="password" name="pswd" required="required" type="password" placeholder="eg. hkoSo92!" /> 
+                                </p>
+                                <p class="login button"> 
+                                    <input type="submit" value="Login" /> 
+                                </p>
+                                <p class="change_link">
+                                    New user ?
+                                    <a href="#toregister" class="to_register">Register</a>
+                                </p>
+                            </form>
+                        </div>
+						
+                    </div>
+                </div>  
+            </section>
+        </div>
+    </body>
+</html>

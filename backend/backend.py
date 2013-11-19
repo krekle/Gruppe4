@@ -104,18 +104,30 @@ def db_insert(t, kwargs):
         return False
 
 def db_update(table, kwargs, uid):
-    sql = "UPDATE %s SET" % (table)
+    sql = "UPDATE %s SET " % (table)
     for k in kwargs:
-        sql = k + kwargs[k] + " "
-    sql = "WHERE id=%s" % uid
+        sql += k + '=' + '"' + str(kwargs[k]) + '"' + ", "
+    sql = sql[:-2] + " "
+    sql += "WHERE id=%s" % uid
+    print(sql)
     try:
         cur = con.cursor()
         cur.execute(sql)
         con.commit()
     except:
+        print("Caught exception")
         return False
     return True
 
+def db_update_sheep(name, age, gender, weight, uid):
+    try:
+        sql = "UPDATE sauer SET name='Trym' WHERE id='37'"
+        cur = con.cursor()
+        cur.execute(sql) 
+        cur.commit()
+    except:
+        return False
+    return True
 
 def db_update_token(email, token):
     try: 
@@ -255,38 +267,43 @@ def get_user():
 def edit_user():
     token = request.query.token
     sheepid = request.query.uid
-    #User
-    #sheep
     if validate_token(token):
         d = {}
-        if sheepid != "" or sheepid != None:
+        if sheepid == "" or sheepid == None:
             user = str(db_read_single('id', 'bonder', 'token', token))
             d['name'] = request.query.name
             d['mail'] = request.query.mail
             d['vara'] = request.query.vara
             d['telephone'] = request.query.phone
             d['address'] = request.query.address
+            l = []
             for k in d:
                 if(d[k] == None or d[k] == ""):
-                    del d[k]
+                    l.append(k)
+            for i in l:
+                d.pop(i)
             result = db_update("bonder", d, user)
             if(result == True):
                 return respond(200, "Sheep updated", None)
             else:
                 return respond(133, "DataBase-Error", None)
-        elif sheepid == "" or sheepid == None:
+        elif sheepid != "" or sheepid != None:
             d['name'] = request.query.name
-            d['age'] = request.query.name
-            d['weight'] = request.query.name
-            d['Gender'] = request.query.name
+            d['age'] = request.query.age
+            d['weight'] = request.query.weight
+            d['gender'] = request.query.gender
+            l = []
             for k in d:
                 if(d[k] == None or d[k] == ""):
-                    del d[k]
+                    l.append(k)
+            for i in l:
+                d.pop(i)
             result = db_update("sauer", d, sheepid)
+            #result = db_update_sheep(d['name'], d['age'], d['gender'], d['weight'], sheepid)
             if(result == True):
                 return respond(200, "Sheep updated", None)
             else:
-                return respond(131, "DataBase-Error", None)
+                return respond(133, "DataBase-Error", d)
     else:
         return respond(131, "No (such) token", None)
 
@@ -298,7 +315,7 @@ def sheepchat():
     token = request.query.token
     if validate_token(token):
         d['uid'] = str(db_read_single('id', 'bonder', 'token', token))
-        d['user'] = str(db_read_single('name', 'bonder', 'token', token))
+        d['uname'] = str(db_read_single('name', 'bonder', 'token', token))
         result = db_insert('chat', d)
         if (result != False):
             return respond(200, 'ChatLog updated', None)
@@ -338,7 +355,7 @@ def respond(co, ms, resp):
 
 @route('/register')
 def register():
-    return static_file('registration.html', root=os.path.join(os.path.dirname(__file__), 'static'))
+    return static_file('okay.html', root=os.path.join(os.path.dirname(__file__), 'static'))
 
 @route('/register', method='POST')
 def register():
