@@ -170,12 +170,6 @@ public class HomeTab {
 		
 		final Button btn_edit = new Button("Save");
 		btn_edit.setVisible(false);
-		btn_edit.setOnAction(new EventHandler<ActionEvent>() {
-
-			public void handle(ActionEvent arg0) {
-				sheepdb.editUser(txt_name.getText().toString(), txt_email.getText().toString(), txt_vara.getText().toString(), txt_phone.getText().toString(), txt_address.getText().toString());
-			}
-		});
 		
 		final Hyperlink hl_edit = new Hyperlink("Edit..");
 		hl_edit.setOnAction(new EventHandler<ActionEvent>() {
@@ -200,6 +194,20 @@ public class HomeTab {
 				}
 				
 				
+			}
+		});
+		
+		btn_edit.setOnAction(new EventHandler<ActionEvent>() {
+
+			public void handle(ActionEvent arg0) {
+				sheepdb.editUser(txt_name.getText().toString(), txt_email.getText().toString(), txt_vara.getText().toString(), txt_phone.getText().toString(), txt_address.getText().toString());
+				txt_address.setEditable(false);
+				txt_name.setEditable(false);
+				txt_vara.setEditable(false);
+				txt_phone.setEditable(false);
+				txt_email.setEditable(false);
+				btn_edit.setVisible(false);
+				hl_edit.setText("Edit..");
 			}
 		});
 		
