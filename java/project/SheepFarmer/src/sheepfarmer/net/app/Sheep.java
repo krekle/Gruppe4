@@ -47,14 +47,15 @@ public class Sheep {
 		this.ownerid = new SimpleStringProperty(ownerid);
 		this.name = new SimpleStringProperty(name);
 		this.temp = new SimpleStringProperty(temp);
-
+		this.dead = dead;
+		
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.setGen(gen);
 		this.setCol(randomEnum(Colour.class));
 		this.setMood(randomEnum(Mood.class));
 
-		this.setDead(dead);
+		
 
 	}
 
@@ -184,6 +185,11 @@ public class Sheep {
 
 	public boolean isDead() {
 		return dead;
+	}
+	
+	public String isDeadString(){
+		if(this.dead) return "Dead";
+		else return "Alive";
 	}
 
 	public void setDead(boolean dead) {

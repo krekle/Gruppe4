@@ -29,7 +29,8 @@ public class SheepResponse {
 		ArrayList<Sheep> sheepList = new ArrayList<Sheep>();
 		for (int i = 0; i < arrayResponse.length(); i++) {
 			JSONObject jo = arrayResponse.getJSONObject(i);
-			sheepList.add(new Sheep(jo.getString("id"), jo.getString("age"), jo.getString("hr"), jo.getString("weight"), jo.getString("respiration"), jo.getString("owner"), Float.parseFloat(jo.getString("lat")), Float.parseFloat(jo.getString("long")), jo.getString("name"), jo.getString("gender"), jo.getString("temp"), ((jo.getString("dead")=="0")?false:true)));
+		
+			sheepList.add(new Sheep(jo.getString("id"), jo.getString("age"), jo.getString("hr"), jo.getString("weight"), jo.getString("respiration"), jo.getString("owner"), Float.parseFloat(jo.getString("lat")), Float.parseFloat(jo.getString("long")), jo.getString("name"), jo.getString("gender"), jo.getString("temp"), ((jo.getString("dead").equals("0"))?false:true)));
 		}
 		return sheepList;
 	}

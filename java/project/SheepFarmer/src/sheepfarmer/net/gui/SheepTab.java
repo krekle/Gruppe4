@@ -199,7 +199,7 @@ public class SheepTab extends Application {
 					details.set(6, "Latitude: "+ String.valueOf(item.getLatitude()));
 					details.set(7, "Longitude: "+ String.valueOf(item.getLongitude()));
 					details.set(8, "Temperature "+ item.getTemp());
-					details.set(9, "Status: "+ ((item.isDead())? "Alive":"Dead"));
+					details.set(9, "Status: "+ ((item.isDeadString())));
 					details.set(10,	"Color: "+ String.valueOf(item.getCol()));
 					details.set(11, "Gender: "+ item.getGen().toString());
 					
