@@ -337,7 +337,7 @@ public class SheepTab extends Application {
 		//Nothing
     }
 	
-	private void sheepControl(Sheep s){
+	private void sheepControl(final Sheep s){
 		Stage stage = new Stage();
 		VBox addOrEdit = new VBox();
 		
@@ -353,7 +353,12 @@ public class SheepTab extends Application {
 		Button btn_done = new Button((s == null)?"Add Sheep":"Save");
 		btn_done.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent arg0) {
-				sheepdb.addSheep(txt_name.getText(), txt_age.getText(), txt_gender.getText(), txt_weight.getText(), Singleton.getInstance().getToken());
+				if(s==null){
+					sheepdb.addSheep(txt_name.getText(), txt_age.getText(), txt_gender.getText(), txt_weight.getText(), Singleton.getInstance().getToken());
+				}else {
+					sheepdb.editSheep(s.getId().toString(), txt_name.getText().toString(), txt_weight.getText().toString(), txt_gender.getText().toLowerCase().toString(), txt_age.getText().toString());
+				}
+				
 				Button  btn = (Button)  arg0.getSource();
 				Node source = (Node) btn.getParent();
 			    Stage stage  = (Stage) source.getScene().getWindow();

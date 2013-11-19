@@ -4,9 +4,12 @@ import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -132,42 +135,77 @@ public class HomeTab {
 	}
 
 	private VBox userContent(User me) {
-		VBox userContent = new VBox();
+		final VBox userContent = new VBox();
 		userContent.setSpacing(2.0);
 
 		Label lb_name = new Label("Name");
-		TextField txt_name = new TextField();
+		final TextField txt_name = new TextField();
 		txt_name.setText(me.getName());
 		txt_name.setEditable(false);
 		lb_name.setLabelFor(txt_name);
 
 		Label lb_email = new Label("Email");
-		TextField txt_email = new TextField();
+		final TextField txt_email = new TextField();
 		txt_email.setText(me.getEmail());
 		txt_email.setEditable(false);
 		lb_email.setLabelFor(txt_email);
 
 		Label lb_phone = new Label("Phone");
-		TextField txt_phone = new TextField();
+		final TextField txt_phone = new TextField();
 		txt_phone.setText(me.getPhone());
 		txt_phone.setEditable(false);
 		lb_phone.setLabelFor(txt_phone);
 
 		Label lb_address = new Label("Address");
-		TextField txt_address = new TextField();
+		final TextField txt_address = new TextField();
 		txt_address.setText(me.getAddress());
 		txt_address.setEditable(false);
 		lb_address.setLabelFor(txt_address);
 
 		Label lb_vara = new Label("Vara");
-		TextField txt_vara = new TextField();
+		final TextField txt_vara = new TextField();
 		txt_vara.setEditable(false);
 		txt_vara.setText(me.getVara());
 		lb_vara.setLabelFor(txt_vara);
+		
+		final Button btn_edit = new Button("Save");
+		btn_edit.setVisible(false);
+		btn_edit.setOnAction(new EventHandler<ActionEvent>() {
 
+			public void handle(ActionEvent arg0) {
+				sheepdb.editUser(txt_name.getText().toString(), txt_email.getText().toString(), txt_vara.getText().toString(), txt_phone.getText().toString(), txt_address.getText().toString());
+			}
+		});
+		
+		final Hyperlink hl_edit = new Hyperlink("Edit..");
+		hl_edit.setOnAction(new EventHandler<ActionEvent>() {
+
+			public void handle(ActionEvent arg0) {
+				if (hl_edit.getText().toString().equals("Edit..")){
+					txt_address.setEditable(true);
+					txt_name.setEditable(true);
+					txt_vara.setEditable(true);
+					txt_phone.setEditable(true);
+					txt_email.setEditable(true);
+					btn_edit.setVisible(true);
+					hl_edit.setText("Cancel edit.");
+				}else {
+					txt_address.setEditable(false);
+					txt_name.setEditable(false);
+					txt_vara.setEditable(false);
+					txt_phone.setEditable(false);
+					txt_email.setEditable(false);
+					btn_edit.setVisible(false);
+					hl_edit.setText("Edit..");
+				}
+				
+				
+			}
+		});
+		
 		userContent.getChildren().addAll(lb_name, txt_name, lb_email,
 				txt_email, lb_address, txt_address, lb_phone, txt_phone,
-				lb_vara, txt_vara);
+				lb_vara, txt_vara, hl_edit,btn_edit);
 		return userContent;
 	}
 }

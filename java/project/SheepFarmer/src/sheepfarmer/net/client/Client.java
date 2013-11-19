@@ -58,7 +58,6 @@ public class Client {
 			result.append(line);
 		}
  
-		//System.out.println(result.toString());
 		return result.toString();
 	}
  
