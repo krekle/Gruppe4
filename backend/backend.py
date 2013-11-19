@@ -109,6 +109,7 @@ def db_update(table, kwargs, uid):
         sql += k + '=' + '"' + str(kwargs[k]) + '"' + ", "
     sql = sql[:-2] + " "
     sql += "WHERE id=%s" % uid
+    print(sql)
     try:
         cur = con.cursor()
         cur.execute(sql)
@@ -260,7 +261,7 @@ def edit_user():
         if sheepid == "" or sheepid == None:
             user = str(db_read_single('id', 'bonder', 'token', token))
             d['name'] = request.query.name
-            d['mail'] = request.query.mail
+            d['email'] = request.query.mail
             d['vara'] = request.query.vara
             d['telephone'] = request.query.phone
             d['address'] = request.query.address
@@ -270,9 +271,10 @@ def edit_user():
                     l.append(k)
             for i in l:
                 d.pop(i)
+            print(d)
             result = db_update("bonder", d, user)
             if(result == True):
-                return respond(200, "Sheep updated", None)
+                return respond(200, "Farmer updated", None)
             else:
                 return respond(133, "DataBase-Error", None)
         elif sheepid != "" or sheepid != None:
