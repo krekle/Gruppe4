@@ -109,22 +109,10 @@ def db_update(table, kwargs, uid):
         sql += k + '=' + '"' + str(kwargs[k]) + '"' + ", "
     sql = sql[:-2] + " "
     sql += "WHERE id=%s" % uid
-    print(sql)
     try:
         cur = con.cursor()
         cur.execute(sql)
         con.commit()
-    except:
-        print("Caught exception")
-        return False
-    return True
-
-def db_update_sheep(name, age, gender, weight, uid):
-    try:
-        sql = "UPDATE sauer SET name='Trym' WHERE id='37'"
-        cur = con.cursor()
-        cur.execute(sql) 
-        cur.commit()
     except:
         return False
     return True
@@ -355,7 +343,7 @@ def respond(co, ms, resp):
 
 @route('/register')
 def register():
-    return static_file('okay.html', root=os.path.join(os.path.dirname(__file__), 'static'))
+    return static_file('registration.html', root=os.path.join(os.path.dirname(__file__), 'static'))
 
 @route('/register', method='POST')
 def register():
@@ -370,7 +358,7 @@ def register():
       token = generate_token(email)
       d = {'name':name, 'email':email,'pswd':pswd, 'token':token,  'sheeps':'0', 'telephone':phone, 'address':address, 'vara':vara}
       if db_insert('bonder', d) == True:
-        return respond(200, 'User Registration Complete', {'token':token})
+        return static_file('complete.html', root=os.path.join(os.path.dirname(__file__), 'static'))
       else:
         return respond(131, 'Database-error', None)
     else:
