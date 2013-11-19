@@ -124,14 +124,16 @@ public class sheepdb{
 		
 	}
 	
-	public static SheepResponse editUser(String email, String name, String mail, String vara, String phone, String address){
+	public static SheepResponse editUser(String name, String mail, String vara, String phone, String address){
 		Client client;
 		String result = "";
 		try {
-			client = new Client("edit", Type.GET, "token", Singleton.getInstance().getToken(), "email", email, "name", name, "vara", vara, "phone", phone, "address", address);
+			System.out.println(name+mail+vara+phone+address);
+			client = new Client("edit", Type.GET, "token", Singleton.getInstance().getToken(), "name", name, "mail", mail,  "vara", vara, "telephone", phone, "address", address);
 			result = client.execute();
+			System.out.print(result);
 		} catch (Exception e) {
-			System.out.println("Err-database client editSheep");
+			System.out.println("Err-database client editUser");
 		}
 		return new SheepResponse(result, null);
 		

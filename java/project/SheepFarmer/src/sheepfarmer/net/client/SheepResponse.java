@@ -102,7 +102,8 @@ public class SheepResponse {
 				objectResponse = data.getJSONObject("response");
 			}
 			} catch (JSONException e) {
-				System.out.println("ERR-Json parsing error");
+				//If response = null: this is no error
+//				System.out.println("ERR-Json parsing error");
 		}
 	}
 
