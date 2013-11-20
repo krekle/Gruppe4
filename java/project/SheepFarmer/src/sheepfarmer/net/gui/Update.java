@@ -1,4 +1,4 @@
-package sheepfarmer.net.app;
+package sheepfarmer.net.gui;
 
 import javafx.collections.ObservableList;
 

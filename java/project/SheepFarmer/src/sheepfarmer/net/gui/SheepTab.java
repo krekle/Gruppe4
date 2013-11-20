@@ -34,8 +34,8 @@ import javafx.stage.Stage;
 import jfx.messagebox.MessageBox;
 import sheepfarmer.net.app.Notification;
 import sheepfarmer.net.app.Sheep;
-import sheepfarmer.net.app.Sheep.Colour;
 import sheepfarmer.net.app.Singleton;
+import sheepfarmer.net.app.Sheep.Colour;
 import sheepfarmer.net.client.SheepResponse;
 import sheepfarmer.net.client.sheepdb;
  

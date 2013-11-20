@@ -2,6 +2,11 @@ package sheepfarmer.net.gui;
 
 import java.util.ArrayList;
 
+import sheepfarmer.net.app.Notification;
+import sheepfarmer.net.app.Singleton;
+import sheepfarmer.net.app.User;
+import sheepfarmer.net.client.SheepResponse;
+import sheepfarmer.net.client.sheepdb;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,11 +26,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
-import sheepfarmer.net.app.Notification;
-import sheepfarmer.net.app.Singleton;
-import sheepfarmer.net.app.User;
-import sheepfarmer.net.client.SheepResponse;
-import sheepfarmer.net.client.sheepdb;
 
 public class HomeTab {
 

@@ -1,5 +1,9 @@
 package sheepfarmer.net.gui;
 
+import sheepfarmer.net.app.CallListener;
+import sheepfarmer.net.app.Singleton;
+import sheepfarmer.net.client.SheepResponse;
+import sheepfarmer.net.client.sheepdb;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,10 +17,6 @@ import javafx.scene.effect.Reflection;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import sheepfarmer.net.app.CallListener;
-import sheepfarmer.net.app.Singleton;
-import sheepfarmer.net.client.SheepResponse;
-import sheepfarmer.net.client.sheepdb;
 
 
 public class Login extends Application {

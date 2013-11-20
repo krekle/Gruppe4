@@ -3,6 +3,10 @@ package sheepfarmer.net.gui;
 import java.net.URL;
 import java.util.ArrayList;
 
+import sheepfarmer.net.app.Sheep;
+import sheepfarmer.net.app.Singleton;
+import sheepfarmer.net.client.SheepResponse;
+import sheepfarmer.net.client.sheepdb;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,10 +22,6 @@ import javafx.scene.web.WebEvent;
 import javafx.scene.web.WebView;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import sheepfarmer.net.app.Sheep;
-import sheepfarmer.net.app.Singleton;
-import sheepfarmer.net.client.SheepResponse;
-import sheepfarmer.net.client.sheepdb;
 
 /**
  * Returns a SplitPane to the MainViewController Has a constructor with
