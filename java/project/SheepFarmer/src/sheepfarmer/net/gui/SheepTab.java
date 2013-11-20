@@ -1,6 +1,5 @@
 package sheepfarmer.net.gui;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import javafx.application.Application;
@@ -34,11 +33,16 @@ import javafx.stage.Stage;
 import jfx.messagebox.MessageBox;
 import sheepfarmer.net.app.Notification;
 import sheepfarmer.net.app.Sheep;
-import sheepfarmer.net.app.Singleton;
 import sheepfarmer.net.app.Sheep.Colour;
+import sheepfarmer.net.app.Singleton;
 import sheepfarmer.net.client.SheepResponse;
 import sheepfarmer.net.client.sheepdb;
  
+/**
+ * Class for managing GUI and Actions for the SheepTab
+ * @author krekle
+ *
+ */
 public class SheepTab extends Application {
  
 	  private static String[] imagelist = {
@@ -74,6 +78,11 @@ public class SheepTab extends Application {
     private Label lb_table;
     private TableView<Sheep> table;
     
+    /**
+     * Method for getting a list of Sheep from sheepdb
+     * @return
+     * A list of Sheep
+     */
     private static ObservableList<Sheep> getsheepDetails(){
     	SheepResponse sr = null;
 		try {
@@ -84,7 +93,11 @@ public class SheepTab extends Application {
     	return FXCollections.observableArrayList(sr.getSheepList());
     			
     }
-    
+    /**
+     * Method for getting a list of Sheep from sheepdb
+     * @return
+     * A list of String
+     */
     private static ObservableList<String> getNotification(String sheepid){
     	SheepResponse sr = null;
     	ObservableList<String> items =FXCollections.observableArrayList ();
@@ -101,7 +114,9 @@ public class SheepTab extends Application {
     			
     }
     
-    
+    /**
+     * Creates the Left side of the screen
+     */
     @SuppressWarnings("unchecked")
 	private void createLeft(){
     	left = new VBox();
@@ -217,7 +232,9 @@ public class SheepTab extends Application {
         left.getChildren().addAll(toleft, table);
         left.setStyle("-fx-box-border: transparent;");
     }
-
+    /**
+     * Creates the right side of the screen
+     */
     private void createRight(){
 //      Splitting:
 //     	__________
@@ -337,7 +354,12 @@ public class SheepTab extends Application {
     public void start(Stage stage) {
 		//Nothing
     }
-	
+	/**
+	 * Creates the pop-up window for editing or adding a sheep
+	 * @param s
+	 * If a sheep s is sent the edit method is called from sheepdb then to the server
+	 * If sheep s = null a the new sheep method is called from sheepdb then to the server
+	 */
 	private void sheepControl(final Sheep s){
 		Stage stage = new Stage();
 		VBox addOrEdit = new VBox();
