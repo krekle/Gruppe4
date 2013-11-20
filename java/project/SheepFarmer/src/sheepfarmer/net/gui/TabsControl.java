@@ -11,7 +11,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
- 
+ /**Class for managing the "main" screen with tabs
+  * 
+  * @author krekle
+  *
+  */
 public class TabsControl extends Application {
  
   public Scene createView() {

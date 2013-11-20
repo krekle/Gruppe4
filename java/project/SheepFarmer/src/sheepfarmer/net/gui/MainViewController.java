@@ -5,7 +5,11 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
+/**Class for managing the Login and TabsControl views
+ * 
+ * @author krekle
+ *
+ */
 public class MainViewController extends Application implements CallListener{
 
 	private Stage currentStage;
@@ -14,7 +18,7 @@ public class MainViewController extends Application implements CallListener{
 	public static void main(String[] args){
 		launch(args);
 	}
-	
+	//starts the gui
 	@Override
 	public void start(Stage stage) throws Exception {
 		stage.setTitle("SheepFarmer");
@@ -24,7 +28,7 @@ public class MainViewController extends Application implements CallListener{
 		stage.setScene(currentScene);
 		setStage(stage);
 	}
-	
+	// Sets the scene
 	public void setScene(VBox vb, int x, int y){
 		currentScene = new Scene(vb,((x != 0) ? x:400),((y != 0) ? y:400));
 		currentScene.getStylesheets().add("loginStyle.css");
@@ -38,6 +42,9 @@ public class MainViewController extends Application implements CallListener{
 		currentStage.show();
 	}
 	
+	/**
+	 * Method is called to change views
+	 */
 	public void loginCallBack(boolean log) {
 		//Login success, Open the main application.
 		TabsControl main = new TabsControl();

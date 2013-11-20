@@ -1,5 +1,12 @@
 package sheepfarmer.net.app;
 
+/**
+ * 
+ * @author krekle
+ *	Class for storing and representing Notifications
+ *	Getters and setters get and set
+ */
+
 public class Notification {
 	private String id, owner, sheepid, level, msg, lat, lng, datime;
 	public Notification(String id,String owner,String sheepid,String level,String msg,String lat,String lng,String datime){
@@ -12,6 +19,7 @@ public class Notification {
 		this.lng = lng;
 		this.datime = datime;
 	}
+	
 	public String getId() {
 		return id;
 	}

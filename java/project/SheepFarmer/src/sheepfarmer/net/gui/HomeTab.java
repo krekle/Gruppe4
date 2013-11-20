@@ -27,6 +27,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
 
+/**This Class handles all the GUI and actions for the homeTab
+ * 
+ * @author krekle
+ *
+ */
 public class HomeTab {
 
 	private static ObservableList<String> notification;
@@ -35,6 +40,11 @@ public class HomeTab {
 	private static ImageView logo;
 	private User me;
 
+	/**
+	 * 
+	 * @return
+	 * List of notifications
+	 */
 	private ObservableList<String> getNotification() {
 		SheepResponse sr = null;
 		ObservableList<String> items = FXCollections.observableArrayList();
@@ -51,7 +61,11 @@ public class HomeTab {
 		return items;
 
 	}
-
+/**
+ * 
+ * @return
+ * the view which is under the tab
+ */
 	public BorderPane createView() {
 		// AnchorPane view = new AnchorPane();
 		logo = new ImageView(new Image("/thislogo.png"));
@@ -134,6 +148,12 @@ public class HomeTab {
 		return pane;
 	}
 
+	/**Creates the element containing User information
+	 * 
+	 * @param me
+	 * @return
+	 * A VBox containing User information
+	 */
 	private VBox userContent(User me) {
 		final VBox userContent = new VBox();
 		userContent.setSpacing(2.0);

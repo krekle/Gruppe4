@@ -18,11 +18,22 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-
+/**
+ *Class for creating and managing GUI and Actions for 
+ *the Login screen
+ * 
+ * @author krekle
+ *
+ *
+ */
 public class Login extends Application {
 	VBox content;
 	CallListener controller;
-	
+	/**
+	 * Creates the login view
+	 * @param cont
+	 * On successfull login this view terminates and the TabsControl is started
+	 */
 	public Login(CallListener cont){
 		 controller = cont;
 	}
@@ -88,7 +99,10 @@ public class Login extends Application {
 		});
 		return login;
 	}
-	
+	/**
+	 * Not used 
+	 * @return
+	 */
 	@SuppressWarnings("unused")
 	private VBox makeRegister(){
 		VBox register = new VBox();

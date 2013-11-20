@@ -1,8 +1,19 @@
 package sheepfarmer.net.app;
-
+/**
+ * 
+ * @author krekle
+ *	Class for storing and representing the farmer.
+ */
 public class User {
 	private String name, email, address, vara, phone;
-
+/**
+ * 
+ * @param name
+ * @param email
+ * @param address
+ * @param vara
+ * @param phone
+ */
 	public User(String name, String email, String address, String vara, String phone){
 		this.name = name;
 		this.email = email;
