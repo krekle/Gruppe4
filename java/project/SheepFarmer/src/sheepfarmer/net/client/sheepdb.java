@@ -128,7 +128,7 @@ public class sheepdb{
 		Client client;
 		String result = "";
 		try {
-			client = new Client("edit", Type.GET, "token", Singleton.getInstance().getToken(), "name", name, "mail", mail,  "vara", vara, "telephone", phone, "address", address);
+			client = new Client("edit", Type.GET, "token", Singleton.getInstance().getToken(),"uid", "", "name", name, "mail", mail,  "vara", vara, "telephone", phone, "address", address);
 			result = client.execute();
 		} catch (Exception e) {
 			System.out.println("Err-database client editUser");
