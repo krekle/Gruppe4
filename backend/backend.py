@@ -15,7 +15,7 @@ import random
 gc.collect()
 
 ## Initiating the database connection##
-con = db.Connect('localhost', 'sauadmin', 'dolly', 'prosjektsau')
+con = db.Connect('secret', 'secret', 'secret', 'super-secret')
 
 ## Database functions ##
 
